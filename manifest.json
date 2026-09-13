@@ -1,0 +1,39 @@
+{
+  "name": "Legal Helpdesk India — भारतीय संविधान मार्गदर्शक",
+  "short_name": "Legal Helpdesk",
+  "description": "भारतीय संविधानातील कलमे मोफत वाचा आणि AI मार्फत कायदेशीर मार्गदर्शन मिळवा.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#F5F8FB",
+  "theme_color": "#1B3A63",
+  "lang": "mr",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-192-maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
