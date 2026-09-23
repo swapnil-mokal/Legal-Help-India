@@ -1,0 +1,23 @@
+name: Unpack site zip
+on:
+  workflow_dispatch:
+  push:
+    paths: ["site.zip"]
+permissions:
+  contents: write
+jobs:
+  unpack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unzip into repo
+        run: |
+          test -f site.zip || exit 0
+          unzip -oq site.zip
+          rm -f site.zip config.js admin.html netlify.toml
+          rm -rf functions google-apps-script
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add -A
+          git commit -m "Unpack site.zip" || echo "nothing to commit"
+          git push
