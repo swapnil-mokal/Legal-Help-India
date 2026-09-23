@@ -11,7 +11,7 @@
 <meta property="og:description" content="भारतीय संविधानातील कलमे मोफत वाचा आणि AI मार्फत कायदेशीर मार्गदर्शन मिळवा.">
 <meta property="og:type" content="website">
 <meta name="robots" content="index, follow">
-<!-- वेबसाईट लाईव्ह झाल्यावर खालील ओळीतील URL तुमच्या खऱ्या पत्त्याने बदला, उदा: <link rel="canonical" href="https://legalhelpdeskindia.netlify.app/"> -->
+<!-- वेबसाईट लाईव्ह झाल्यावर खालील ओळीतील URL तुमच्या खऱ्या पत्त्याने बदला, उदा: <link rel="canonical" href="https://YOUR-USERNAME.github.io/REPO-NAME/"> -->
 
 <!-- ===== PWA (Progressive Web App) सेटअप ===== -->
 <link rel="manifest" href="manifest.json">
@@ -1192,6 +1192,7 @@
   </div>
 </footer>
 
+<script src="config.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -1626,7 +1627,7 @@ document.getElementById('askBtn').addEventListener('click', async ()=>{
   }
 
   try{
-    const response = await fetch("/.netlify/functions/ask", {
+    const response = await apiFetch("ask", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ problem: problem, lang: currentLang })
@@ -2018,7 +2019,7 @@ function downloadDocTemplate(key){
   if(!d) return;
   const lines = [d.title[currentLang].toUpperCase(), '='.repeat(40), ''];
   d.points[currentLang].forEach(p => { lines.push('- ' + p + ': ______________________________'); });
-  lines.push('', 'Legal Helpdesk India — legalhelpdesk-india.netlify.app', 'ही फक्त सर्वसाधारण नमुना रचना आहे; अंतिम दस्तऐवज वकिलाकडून तपासून घ्या.');
+  lines.push('', 'Legal Helpdesk India — ' + location.origin + location.pathname.replace(/[^\/]*$/, ''), 'ही फक्त सर्वसाधारण नमुना रचना आहे; अंतिम दस्तऐवज वकिलाकडून तपासून घ्या.');
   const blob = new Blob([lines.join('\n')], {type:'text/plain;charset=utf-8'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -2060,7 +2061,7 @@ document.getElementById('hfSubmitBtn').addEventListener('click', async ()=>{
   const btn = document.getElementById('hfSubmitBtn');
   btn.disabled = true;
   try{
-    const resp = await fetch('/.netlify/functions/submit-legal-help', {
+    const resp = await apiFetch('submit-legal-help', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify({
@@ -2071,7 +2072,7 @@ document.getElementById('hfSubmitBtn').addEventListener('click', async ()=>{
     const data = await resp.json();
     if(!resp.ok){ throw new Error(data.error || 'failed'); }
 
-    const adminLink = 'https://legalhelpdesk-india.netlify.app/admin.html';
+    const adminLink = new URL('admin.html', location.href).href;
     const waText = encodeURIComponent(
       'नवीन कायदेशीर मदत विनंती (Legal Helpdesk India):\n' +
       'नाव: ' + name + '\n' +
@@ -2132,7 +2133,7 @@ function starStringReview(n){
 async function loadReviews(){
   const listBox = document.getElementById('reviewList');
   try{
-    const resp = await fetch('/.netlify/functions/reviews');
+    const resp = await apiFetch('reviews');
     const data = await resp.json();
     const reviews = data.reviews || [];
     if(reviews.length === 0){
@@ -2167,7 +2168,7 @@ document.getElementById('reviewSubmitBtn').addEventListener('click', async ()=>{
   const btn = document.getElementById('reviewSubmitBtn');
   btn.disabled = true;
   try{
-    const resp = await fetch('/.netlify/functions/submit-review', {
+    const resp = await apiFetch('submit-review', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify({ name: name, rating: selectedRating, message: message, lang: currentLang })

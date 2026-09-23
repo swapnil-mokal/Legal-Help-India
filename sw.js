@@ -1,13 +1,14 @@
 // Legal Helpdesk India — Service Worker
 // उद्देश: ऍप शेल (HTML/CSS/JS/आयकॉन) ऑफलाईन उपलब्ध ठेवणे.
 // AI प्रश्नोत्तर, कायदेशीर मदत फॉर्म, आणि पुनरावलोकने यांना नेहमी इंटरनेट लागेल
-// (कारण ती थेट सर्व्हरशी / Netlify functions शी बोलतात) — त्यामुळे ती cache केली जात नाहीत.
+// (कारण ती थेट Google Apps Script सर्व्हरशी बोलतात) — त्यामुळे ती cache केली जात नाहीत.
 
-const CACHE_NAME = "legal-helpdesk-india-v1";
+const CACHE_NAME = "legal-helpdesk-india-v2";
 const APP_SHELL = [
   "./",
   "./index.html",
   "./manifest.json",
+  "./config.js",
   "./icons/icon-192.png",
   "./icons/icon-512.png"
 ];
@@ -31,8 +32,8 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   const req = event.request;
 
-  // API कॉल्स (Netlify functions) कधीही cache करू नका — नेहमी live network वापरा
-  if (req.url.includes("/.netlify/functions/")) {
+  // API कॉल्स (Google Apps Script) कधीही cache करू नका — नेहमी live network वापरा
+  if (req.method !== "GET" || req.url.includes("script.google.com") || req.url.includes("googleusercontent.com")) {
     event.respondWith(fetch(req).catch(() => new Response(
       JSON.stringify({ error: "Internet उपलब्ध नाही. कृपया इंटरनेट कनेक्शन तपासा." }),
       { headers: { "Content-Type": "application/json" }, status: 503 }

@@ -137,6 +137,7 @@
   </div>
 </main>
 
+<script src="config.js"></script>
 <script>
 let adminPassword = "";
 let allReviews = [];
@@ -154,8 +155,8 @@ async function login(){
   if(!pw){ return; }
   try{
     const [reviewsResp, hfResp] = await Promise.all([
-      fetch('/.netlify/functions/admin-reviews?password=' + encodeURIComponent(pw)),
-      fetch('/.netlify/functions/admin-legal-requests?password=' + encodeURIComponent(pw))
+      apiFetch('admin-reviews?password=' + encodeURIComponent(pw)),
+      apiFetch('admin-legal-requests?password=' + encodeURIComponent(pw))
     ]);
     const reviewsData = await reviewsResp.json();
     const hfData = await hfResp.json();
@@ -192,7 +193,7 @@ function escapeHtml(str){
 }
 
 document.getElementById('refreshBtn').addEventListener('click', async ()=>{
-  const resp = await fetch('/.netlify/functions/admin-reviews?password=' + encodeURIComponent(adminPassword));
+  const resp = await apiFetch('admin-reviews?password=' + encodeURIComponent(adminPassword));
   const data = await resp.json();
   if(resp.ok){ allReviews = data.reviews || []; renderList(); }
 });
@@ -243,7 +244,7 @@ function renderList(){
 
 async function doAction(id, action){
   try{
-    const resp = await fetch('/.netlify/functions/review-action', {
+    const resp = await apiFetch('review-action', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify({ id: id, action: action, password: adminPassword })
@@ -265,7 +266,7 @@ async function doAction(id, action){
 }
 
 document.getElementById('hfRefreshBtn').addEventListener('click', async ()=>{
-  const resp = await fetch('/.netlify/functions/admin-legal-requests?password=' + encodeURIComponent(adminPassword));
+  const resp = await apiFetch('admin-legal-requests?password=' + encodeURIComponent(adminPassword));
   const data = await resp.json();
   if(resp.ok){ allHelpRequests = data.requests || []; renderHfList(); }
 });
@@ -313,7 +314,7 @@ function renderHfList(){
 
 async function setHfStatus(id, status){
   try{
-    const resp = await fetch('/.netlify/functions/admin-legal-requests', {
+    const resp = await apiFetch('admin-legal-requests', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify({ id: id, status: status, password: adminPassword })
