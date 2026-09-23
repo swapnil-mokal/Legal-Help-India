@@ -610,11 +610,12 @@
       <a href="#" data-tab="documents" data-i18n="nav_documents">नमुना अर्ज</a>
       <a href="#" data-tab="ask" data-i18n="nav_ask">प्रश्न विचारा</a>
       <a href="#" data-tab="helpform" data-i18n="nav_helpform">कायदेशीर मदत मागवा</a>
+      <a href="#" data-tab="tracking" data-i18n="nav_tracking">विनंती ट्रॅक करा</a>
       <a href="#" data-tab="reviews" data-i18n="nav_reviews">पुनरावलोकने</a>
       <a href="#" data-tab="about" data-i18n="nav_about">आमच्याबद्दल</a>
       <a href="#" data-tab="contact" data-i18n="nav_contact">संपर्क</a>
     </nav>
-    <div style="display:flex;align-items:center;gap:10px;">
+    <div style="display:flex;align-items:center;gap:10px;"><button id="shareAppBtn" title="Share app" style="background:var(--gold);color:var(--navy-deep);border:0;border-radius:7px;padding:7px 10px;font-weight:700;cursor:pointer;">↗ Share</button>
       <div class="lang-switch" id="langSwitch">
         <button data-lang="mr" class="active">मराठी</button>
         <button data-lang="hi">हिंदी</button>
@@ -634,6 +635,8 @@
   </div>
 </div>
 
+<div id="liveNotice" style="display:none;max-width:1180px;margin:12px auto 0;padding:12px 16px;border:1px solid #dfd2ad;border-radius:12px;background:#fff8e7;color:#5f4b1f;font-size:.88rem;"></div>
+
 <div class="tab-strip-wrap">
   <div class="tab-strip" id="tabStrip">
     <button class="tab-btn active" data-tab="home" data-i18n="nav_home">मुख्यपृष्ठ</button>
@@ -642,6 +645,7 @@
     <button class="tab-btn" data-tab="documents" data-i18n="nav_documents">नमुना अर्ज</button>
     <button class="tab-btn" data-tab="ask" data-i18n="nav_ask">प्रश्न विचारा</button>
     <button class="tab-btn" data-tab="helpform" data-i18n="nav_helpform">कायदेशीर मदत मागवा</button>
+    <button class="tab-btn" data-tab="tracking" data-i18n="nav_tracking">विनंती ट्रॅक करा</button>
     <button class="tab-btn" data-tab="reviews" data-i18n="nav_reviews">पुनरावलोकने</button>
     <button class="tab-btn" data-tab="about" data-i18n="nav_about">आमच्याबद्दल</button>
     <button class="tab-btn" data-tab="contact" data-i18n="nav_contact">संपर्क</button>
@@ -1060,6 +1064,8 @@
 </section>
 </div>
 
+<div class="tab-panel" id="tab-tracking"><section id="tracking"><div class="section-head"><span class="kicker" data-i18n="tracking_kicker">विनंती ट्रॅकिंग</span><h2 data-i18n="tracking_title">तुमच्या विनंतीची स्थिती तपासा</h2><p data-i18n="tracking_sub">Request ID आणि नोंदवलेला मोबाईल क्रमांक टाका.</p></div><div class="review-form-card"><label for="trackId" data-i18n="tracking_id">Request ID</label><input id="trackId" placeholder="उदा. abc123"><label for="trackMobile" data-i18n="tracking_mobile">मोबाईल क्रमांक</label><input id="trackMobile" type="tel" maxlength="10" placeholder="१० अंकी मोबाईल"><button class="btn btn-primary" id="trackBtn" style="margin-top:18px;" data-i18n="tracking_btn">स्थिती तपासा</button><div class="review-msg" id="trackMsg"></div></div></section></div>
+
 <div class="tab-panel" id="tab-reviews">
 <section id="reviews">
   <div class="section-head">
@@ -1132,13 +1138,13 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="m22 6-10 7L2 6"/></svg>
         <div>
           <div class="label" data-i18n="contact_email_label">ईमेल</div>
-          <div class="value"><a href="mailto:sbm.group.legalservices@gmail.com">sbm.group.legalservices@gmail.com</a></div>
+          <div class="value"><a href="mailto:sbm.group.legal.services@gmail.com">sbm.group.legal.services@gmail.com</a></div>
         </div>
       </div>
       <div class="contact-actions">
         <a class="contact-btn" href="tel:+919870020674" data-i18n="contact_call">📞 कॉल करा</a>
         <a class="contact-btn alt" href="https://wa.me/919870020674" target="_blank" rel="noopener" data-i18n="contact_whatsapp">WhatsApp</a>
-        <a class="contact-btn alt" href="mailto:sbm.group.legalservices@gmail.com" data-i18n="contact_email_btn">✉ ईमेल करा</a>
+        <a class="contact-btn alt" href="mailto:sbm.group.legal.services@gmail.com" data-i18n="contact_email_btn">✉ ईमेल करा</a>
       </div>
     </div>
     <div class="contact-card">
@@ -1188,11 +1194,11 @@
   <div class="footer-bottom">
     <span>© <span id="year"></span> Legal Helpdesk India — Sanskar Foundation. All Rights Reserved./सर्व हक्क राखीव.</span>
     <span data-i18n="footer_note">ही सेवा कायदेशीर सल्ला देत नाही.</span>
-    <a href="admin.html" style="color:#6b7d94;font-size:.75rem;text-decoration:none;">🔒 Admin Login</a>
+    <a href="admin/" style="color:#6b7d94;font-size:.75rem;text-decoration:none;">🔒 Admin Login</a>
   </div>
 </footer>
 
-<script src="config.js"></script>
+<script src="shared/config.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -1272,7 +1278,8 @@ document.querySelectorAll('.stats-bar').forEach(el=>statObserver.observe(el));
 /* ---------- I18N ---------- */
 const STR = {
   brand_sub:{mr:"भारतीय संविधान मार्गदर्शक",hi:"भारतीय संविधान मार्गदर्शक",en:"Indian Constitution Guide"},
-  nav_home:{mr:"मुख्यपृष्ठ",hi:"मुखपृष्ठ",en:"Home"},
+  welcome_msg:{mr:"न्यायाची माहिती, हक्कांची जाणीव आणि योग्य दिशादर्शन — Legal Helpdesk India सोबत.",hi:"न्याय की जानकारी, अधिकारों की समझ और सही मार्गदर्शन — Legal Helpdesk India के साथ.",en:"Legal information, awareness of your rights and the right direction — with Legal Helpdesk India."},
+  nav_tracking:{mr:"विनंती ट्रॅक करा",hi:"अनुरोध ट्रैक करें",en:"Track Request"}, tracking_kicker:{mr:"विनंती ट्रॅकिंग",hi:"अनुरोध ट्रैकिंग",en:"Request Tracking"}, tracking_title:{mr:"तुमच्या विनंतीची स्थिती तपासा",hi:"अपने अनुरोध की स्थिति देखें",en:"Track your request"}, tracking_sub:{mr:"Request ID आणि नोंदवलेला मोबाईल क्रमांक टाका.",hi:"Request ID और मोबाइल नंबर दर्ज करें।",en:"Enter your Request ID and registered mobile number."}, tracking_id:{mr:"Request ID",hi:"Request ID",en:"Request ID"}, tracking_mobile:{mr:"मोबाईल क्रमांक",hi:"मोबाइल नंबर",en:"Mobile number"}, tracking_btn:{mr:"स्थिती तपासा",hi:"स्थिति देखें",en:"Check status"},nav_home:{mr:"मुख्यपृष्ठ",hi:"मुखपृष्ठ",en:"Home"},
   nav_preamble:{mr:"प्रस्तावना",hi:"प्रस्तावना",en:"Preamble"},
   nav_articles:{mr:"संविधानाची कलमे",hi:"संविधान के अनुच्छेद",en:"Constitution Articles"},
   nav_documents:{mr:"नमुना अर्ज",hi:"नमूना आवेदन",en:"Sample Applications"},
@@ -1497,7 +1504,9 @@ document.getElementById('langSwitch').addEventListener('click', (e)=>{
   const btn = e.target.closest('button[data-lang]');
   if(!btn) return;
   applyLang(btn.getAttribute('data-lang'));
+  try{localStorage.setItem('lhi-lang',btn.getAttribute('data-lang'))}catch(e){}
 });
+window.addEventListener('load',function(){try{var sv=localStorage.getItem('lhi-lang');if(sv&&STR.welcome_msg[sv]&&sv!==currentLang)applyLang(sv)}catch(e){}});
 
 /* ---------- ARTICLE DATA ---------- */
 const ARTICLES = [
@@ -2072,7 +2081,7 @@ document.getElementById('hfSubmitBtn').addEventListener('click', async ()=>{
     const data = await resp.json();
     if(!resp.ok){ throw new Error(data.error || 'failed'); }
 
-    const adminLink = new URL('admin.html', location.href).href;
+    const adminLink = new URL('admin/', location.href).href;
     const waText = encodeURIComponent(
       'नवीन कायदेशीर मदत विनंती (Legal Helpdesk India):\n' +
       'नाव: ' + name + '\n' +
@@ -2083,7 +2092,7 @@ document.getElementById('hfSubmitBtn').addEventListener('click', async ()=>{
     );
     const waLink = 'https://wa.me/919870020674?text=' + waText;
     const mailSubject = encodeURIComponent('नवीन कायदेशीर मदत विनंती - ' + name);
-    const mailLink = 'mailto:sbm.group.legalservices@gmail.com?subject=' + mailSubject + '&body=' + waText;
+    const mailLink = 'mailto:sbm.group.legal.services@gmail.com?subject=' + mailSubject + '&body=' + waText;
 
     msgBox.innerHTML = '<div>' + STR.hf_success[currentLang] + '</div>'
       + '<div class="hf-notify-row">'
@@ -2188,6 +2197,17 @@ document.getElementById('reviewSubmitBtn').addEventListener('click', async ()=>{
     btn.disabled = false;
   }
 });
+
+/* ---------- SHARE APP ---------- */
+const shareAppBtn=document.getElementById('shareAppBtn');if(shareAppBtn){shareAppBtn.addEventListener('click',async()=>{const data={title:'Legal Helpdesk India',text:'भारतीय संविधान, नागरिक हक्क आणि कायदेशीर मार्गदर्शन',url:location.href};try{if(navigator.share)await navigator.share(data);else{await navigator.clipboard.writeText(location.href);shareAppBtn.textContent='✓ Link copied';setTimeout(()=>shareAppBtn.textContent='↗ Share',1600)}}catch(e){}})}
+
+/* ---------- LIVE CONTENT FROM ADMIN ---------- */
+(function(){const l=document.querySelector('.hero .lede');if(l&&!document.getElementById('lhiWelcome')){const w=document.createElement('p');w.id='lhiWelcome';w.setAttribute('data-i18n','welcome_msg');w.style.cssText='font-weight:600;color:#8a6a1f;margin:0 0 10px';w.innerHTML=STR.welcome_msg[currentLang];l.parentNode.insertBefore(w,l)}})();
+(async()=>{try{const r=await apiFetch('public-settings');const d=await r.json();if(r.ok&&d.settings){const n=document.getElementById('liveNotice');if(d.settings.welcome){const w=document.getElementById('lhiWelcome');if(w){w.removeAttribute('data-i18n');w.textContent=d.settings.welcome}}if(d.settings.update){n.textContent='🔔 '+d.settings.update;n.style.display='block'}const hero=document.querySelector('.hero .lede');if(hero&&d.settings.cta)hero.textContent=d.settings.cta}}catch(e){}})();
+
+/* ---------- REQUEST TRACKING ---------- */
+const trackBtn=document.getElementById('trackBtn');
+if(trackBtn){trackBtn.addEventListener('click',async()=>{const id=document.getElementById('trackId').value.trim(),mobile=document.getElementById('trackMobile').value.replace(/\D/g,'');const box=document.getElementById('trackMsg');box.classList.remove('show','success','error');try{const r=await apiFetch('track-request',{method:'POST',body:JSON.stringify({id,mobile})});const d=await r.json();if(!r.ok)throw Error(d.error||'Not found');box.textContent=(currentLang==='mr'?'स्थिती: ':currentLang==='hi'?'स्थिति: ':'Status: ')+d.request.status+' · ID: '+d.request.id;box.classList.add('show','success')}catch(e){box.textContent=e.message;box.classList.add('show','error')}})}
 
 /* ---------- PWA: Service Worker + Install Prompt ---------- */
 if ('serviceWorker' in navigator) {
