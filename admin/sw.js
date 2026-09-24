@@ -1,6 +1,6 @@
 // Legal Helpdesk India — Admin PWA Service Worker (network-first; API/secrets कधीही cache होत नाहीत)
-const CACHE = "lhi-admin-v3";
-const ASSETS = ["./", "./index.html", "./style.css", "./app.js", "./manifest.json", "./logo.svg", "../shared/config.js"];
+const CACHE = "lhi-admin-v4";
+const ASSETS = ["./", "./index.html", "./style.css", "./app.js", "./manifest.json", "./logo.svg", "../shared/ui.css", "../shared/config.js"];
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => Promise.all(ASSETS.map((u) => c.add(u).catch(() => {})))));
   self.skipWaiting();

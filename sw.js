@@ -1,7 +1,7 @@
 // Legal Helpdesk India — User PWA Service Worker
 // Network-first (नेहमी नवीन आवृत्ती), नेटवर्क नसल्यास cache. API कॉल्स कधीही cache होत नाहीत.
-const CACHE_NAME = "lhi-user-v3";
-const APP_SHELL = ["./", "./index.html", "./manifest.json", "./shared/config.js", "./logo.svg", "./icons/icon-192.png", "./icons/icon-512.png"];
+const CACHE_NAME = "lhi-user-v4";
+const APP_SHELL = ["./", "./index.html", "./manifest.json", "./app.js", "./shared/ui.css", "./shared/config.js", "./shared/content.js", "./logo.svg", "./icons/icon-192.png", "./icons/icon-512.png"];
 
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(CACHE_NAME).then((c) => Promise.all(APP_SHELL.map((u) => c.add(u).catch(() => {})))));
