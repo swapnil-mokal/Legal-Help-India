@@ -84,7 +84,7 @@ function fill(t,v){return t.replace(/\{\{(\w+)\}\}/g,(m,k)=>esc(v[k]||''))}
 function esc(s){return String(s==null?'':s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])).replace(/\n/g,'<br>')}
 function buildHTML(key,v,L,fields){
   const cfg=LETTER[key];
-  let body='<div style="font-family:\'Noto Sans Devanagari\',Arial,sans-serif;font-size:13px;line-height:1.8;color:#111;width:680px;padding:36px">';
+  let body='<div style="font-family:system-ui,-apple-system,\'Segoe UI\',Roboto,\'Noto Sans Devanagari\',\'Noto Sans\',Arial,sans-serif;font-size:13px;line-height:1.8;color:#111;width:680px;padding:36px;background:#fff">';
   body+='<div style="text-align:center;font-size:18px;font-weight:700;margin-bottom:18px;text-decoration:underline">'+esc(cfg.title[L])+'</div>';
   if(cfg.to){body+='<div style="white-space:pre-line;margin-bottom:12px">'+fill(cfg.to[L],v)+'</div>'}
   if(cfg.subject){body+='<div style="font-weight:600;margin-bottom:14px">'+fill(cfg.subject[L],v)+'</div>'}
@@ -110,20 +110,33 @@ async function download(key,v,L,fields){
   try{
     if(document.fonts&&document.fonts.ready){try{await document.fonts.ready}catch(e){}}
     await new Promise(r=>setTimeout(r,120));
+    // jsPDF च्या स्वतःच्या .html() ऐवजी html2canvas वापरून थेट चित्र (image) बनवतो आणि तेच PDF मध्ये
+    // बसवतो — यामुळे मराठी/हिंदी अक्षरांऐवजी चुकीची चिन्हे (mojibake) येण्याची समस्या टळते, कारण
+    // ब्राउझरने आधीच व्यवस्थित रेंडर केलेल्या मजकुराचा हा हुबेहूब फोटो असतो, वेगळी अक्षर-एन्कोडिंग नाही.
+    const canvas=await window.html2canvas(host,{scale:2,useCORS:true,backgroundColor:'#ffffff',windowWidth:680});
     const jsPDFLib=window.jspdf.jsPDF;
     const doc=new jsPDFLib({unit:'pt',format:'a4'});
+    const pageW=doc.internal.pageSize.getWidth(),pageH=doc.internal.pageSize.getHeight();
+    const marginX=36,marginY=24,contentW=pageW-2*marginX,contentH=pageH-2*marginY;
+    const imgW=contentW,imgH=canvas.height*(imgW/canvas.width);
+    if(imgH<=contentH){
+      doc.addImage(canvas.toDataURL('image/png'),'PNG',marginX,marginY,imgW,imgH);
+    }else{
+      const pxPerPtY=canvas.width/imgW, sliceH=Math.floor(contentH*pxPerPtY);
+      let y=0,first=true;
+      while(y<canvas.height){
+        const h=Math.min(sliceH,canvas.height-y);
+        const c=document.createElement('canvas');c.width=canvas.width;c.height=h;
+        c.getContext('2d').drawImage(canvas,0,y,canvas.width,h,0,0,canvas.width,h);
+        if(!first)doc.addPage();first=false;
+        doc.addImage(c.toDataURL('image/png'),'PNG',marginX,marginY,imgW,h/pxPerPtY);
+        y+=h;
+      }
+    }
     const filename=(key+'-'+(v[fields[0].id]||'form')).replace(/[^a-zA-Z0-9\u0900-\u097F\-]+/g,'_').slice(0,60)+'.pdf';
-    return await new Promise((resolve,reject)=>{
-      doc.html(host,{x:36,y:24,width:523,windowWidth:680,html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff'},
-        callback:function(d){
-          try{
-            const dataUri=d.output('datauristring');
-            d.save(filename);
-            resolve({dataUri:dataUri,filename:filename});
-          }catch(e){reject(e)}
-        }
-      }).catch(reject);
-    });
+    const dataUri=doc.output('datauristring');
+    doc.save(filename);
+    return {dataUri:dataUri,filename:filename};
   } finally { document.body.removeChild(wrap); }
 }
 return{FIELDS:FIELDS,download:download};
