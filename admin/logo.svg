@@ -1,1 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#16233F"/><stop offset="1" stop-color="#0A1328"/></linearGradient></defs><rect width="512" height="512" rx="112" fill="url(#g)"/><circle cx="256" cy="190" r="66" fill="none" stroke="#C9A227" stroke-width="12"/><path d="M256 124v210M166 172h180M166 172l-40 82c25 35 55 35 80 0l-40-82m180 0-40 82c25 35 55 35 80 0l-40-82M192 350h128" fill="none" stroke="#C9A227" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><circle cx="166" cy="172" r="8" fill="#C9A227"/><circle cx="346" cy="172" r="8" fill="#C9A227"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+<rect width="1024" height="1024" rx="190" fill="#0B3D91"/>
+<path d="M512 125 L760 225 L760 540 Q735 760 512 870 Q289 760 264 540 L264 225 Z" fill="#0B3D91" stroke="#F4B400" stroke-width="28"/>
+<path d="M512 245 L512 610 M385 330 H639 M385 330 L310 485 M639 330 L714 485" stroke="#fff" stroke-width="24" fill="none" stroke-linecap="round"/>
+<path d="M285 485 Q310 530 350 485 M674 485 Q714 530 739 485" stroke="#F4B400" stroke-width="18" fill="none"/>
+<circle cx="512" cy="225" r="28" fill="#F4B400"/>
+<text x="512" y="735" text-anchor="middle" font-family="Arial,sans-serif" font-size="110" font-weight="700" fill="#fff">LHI</text>
+<rect x="270" y="790" width="484" height="120" rx="60" fill="#F4B400"/><text x="512" y="872" text-anchor="middle" font-family="Arial,sans-serif" font-size="64" font-weight="800" fill="#0B3D91">ADMIN</text></svg>

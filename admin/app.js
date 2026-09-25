@@ -13,7 +13,9 @@ async function loadAll(){
   const a=await api('admin-legal-requests',{},'GET');if(!a.ok){const e=new Error(a.d.error||'error');e.status=a.status;throw e}
   R=a.d.requests||[];V=(await api('admin-reviews')).d.reviews||[];S=(await api('public-settings')).d.settings||{};
 }
+function fillIcons(){$$('[data-ic]').forEach(e=>{if(!e.dataset.filled&&window.LHI_ICONS&&window.LHI_ICONS[e.dataset.ic]){e.innerHTML=window.LHI_ICONS[e.dataset.ic];e.dataset.filled='1'}})}
 function applyL(){
+  fillIcons();
   document.documentElement.lang=L;$$('[data-i]').forEach(e=>{const k=e.dataset.i;if(I[k])e.textContent=I[k][L]});$$('[data-ip]').forEach(e=>{if(I[e.dataset.ip])e.placeholder=I[e.dataset.ip][L]});
   $$('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.l===L));if(PW)render();
 }

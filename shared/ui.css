@@ -1,5 +1,5 @@
 /* Legal Helpdesk India — shared design system (User + Admin) */
-:root{--navy:#14325c;--navy2:#0c2140;--gold:#c58b2b;--bg:#f3f5f9;--card:#fff;--ink:#1b2433;--mut:#66708a;--line:#e1e6ee;--ok:#1f8a4d;--warn:#c67b0e;--bad:#c0392b;--r:14px;--sh:0 1px 3px rgba(16,32,64,.08),0 6px 18px rgba(16,32,64,.06)}
+:root{--navy:#0b3d91;--navy2:#082a66;--gold:#f4b400;--bg:#f8fafc;--card:#fff;--ink:#17324d;--mut:#6b7280;--line:#e2e8f0;--ok:#10b981;--warn:#c67b0e;--bad:#ef4444;--r:14px;--sh:0 1px 3px rgba(16,32,64,.08),0 6px 18px rgba(16,32,64,.06)}
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Devanagari","Noto Sans",sans-serif;background:var(--bg);color:var(--ink);padding-bottom:84px}
@@ -35,3 +35,17 @@ ul{padding-left:20px}li{margin:4px 0}.ic{font-size:1.3rem}
 .steps{display:flex;gap:6px;margin:12px 0}.steps span{flex:1;text-align:center;font-size:.72rem;padding:8px 2px;border-radius:9px;background:#eef2f8;color:var(--mut);font-weight:600}.steps span.on{background:var(--navy);color:#fff}
 footer{text-align:center;color:var(--mut);font-size:.8rem;padding:6px 14px 20px}
 @media(min-width:720px){.nav{max-width:760px;left:50%;transform:translateX(-50%);border-radius:16px 16px 0 0}}
+
+/* icons (inline SVG, stroke=currentColor) */
+.ic-i{display:inline-flex;width:22px;height:22px;flex:none}
+.ic-i svg{width:100%;height:100%}
+.nav i.ic-i{width:23px;height:23px;margin:0 auto}
+.tile i.ic-i{width:26px;height:26px;margin:0 auto 6px}
+.tile{display:flex;flex-direction:column;align-items:center;gap:2px}
+.dbtn .ic-i{width:20px;height:20px}
+/* PDF fill-form modal */
+.modal{position:fixed;inset:0;background:rgba(10,20,40,.55);z-index:60;display:flex;align-items:flex-end;justify-content:center}
+.modal .sheet{background:#fff;width:100%;max-width:760px;max-height:90vh;overflow:auto;border-radius:18px 18px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom))}
+.modal .sheet h3{margin-bottom:4px}
+.modal-close{float:right;background:none;border:0;font-size:1.4rem;color:var(--mut);cursor:pointer;line-height:1}
+.pdf-disc{font-size:.82rem;color:var(--mut);background:#fff7e6;border-left:3px solid var(--gold);padding:8px 10px;border-radius:8px;margin:10px 0}

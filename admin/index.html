@@ -5,11 +5,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Admin — Legal Helpdesk India</title>
 <meta name="robots" content="noindex,nofollow">
-<meta name="theme-color" content="#14325c">
+<meta name="theme-color" content="#0b3d91">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/png" href="../icons/icon-192.png">
 <link rel="apple-touch-icon" href="../icons/icon-192.png">
 <link rel="stylesheet" href="../shared/ui.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -26,9 +28,10 @@
     <div class="lang" id="appLang"><button data-l="mr">मराठी</button><button data-l="hi">हिंदी</button><button data-l="en">EN</button></div>
     <button class="btn light sm" id="logout" data-i="logout"></button></header>
   <main class="wrap" id="main"></main>
-  <nav class="nav" id="nav"><button data-tab="dash"><i>📊</i><span data-i="tab_dash"></span></button><button data-tab="req"><i>📋</i><span data-i="tab_req"></span></button><button data-tab="rev"><i>⭐</i><span data-i="tab_rev"></span></button><button data-tab="con"><i>✏️</i><span data-i="tab_con"></span></button></nav>
+  <nav class="nav" id="nav"><button data-tab="dash"><i class="ic-i" data-ic="dashboard"></i><span data-i="tab_dash"></span></button><button data-tab="req"><i class="ic-i" data-ic="requests"></i><span data-i="tab_req"></span></button><button data-tab="rev"><i class="ic-i" data-ic="messages"></i><span data-i="tab_rev"></span></button><button data-tab="con"><i class="ic-i" data-ic="documents"></i><span data-i="tab_con"></span></button></nav>
 </div>
 <div class="toast hide" id="toast"></div>
+<script src="../shared/icons.js"></script>
 <script src="../shared/config.js"></script>
 <script src="app.js"></script>
 </body>

@@ -34,7 +34,10 @@ r_t:["नागरिकांचे अभिप्राय","नागरि�
 r_name:["तुमचे नाव","आपका नाम","Your name"],r_msg:["तुमचा अनुभव लिहा","अपना अनुभव लिखें","Write your experience"],r_send:["अभिप्राय पाठवा","समीक्षा भेजें","Submit review"],
 r_ok:["धन्यवाद! मंजुरीनंतर अभिप्राय दिसेल.","धन्यवाद! स्वीकृति के बाद समीक्षा दिखेगी।","Thank you! Your review will appear after approval."],r_req:["नाव आणि अभिप्राय आवश्यक आहे.","नाम और समीक्षा आवश्यक है।","Name and review are required."],
 disc:["हे ऍप सामान्य कायदेशीर माहिती देते; ते वकिलाच्या सल्ल्याला पर्याय नाही.","यह ऐप सामान्य कानूनी जानकारी देता है; यह वकील की सलाह का विकल्प नहीं है।","This app gives general legal information and is not a substitute for a lawyer."],
-sending:["पाठवत आहे…","भेज रहे हैं…","Sending…"],loading:["लोड होत आहे…","लोड हो रहा है…","Loading…"]};
+sending:["पाठवत आहे…","भेज रहे हैं…","Sending…"],loading:["लोड होत आहे…","लोड हो रहा है…","Loading…"],
+pdf_btn:["PDF फॉर्म भरा","PDF फॉर्म भरें","Fill PDF form"],pdf_dl:["PDF डाउनलोड करा","PDF डाउनलोड करें","Download PDF"],
+pdf_making:["PDF तयार होत आहे…","PDF बन रही है…","Preparing PDF…"],pdf_err:["PDF बनवता आले नाही. पुन्हा प्रयत्न करा.","PDF नहीं बन सकी। पुनः प्रयास करें।","Could not create the PDF. Please try again."],
+pdf_note:["हा सर्वसाधारण मसुदा आहे, अंतिम वापरापूर्वी वकिलाचा सल्ला घ्या.","यह एक सामान्य मसौदा है, अंतिम उपयोग से पहले वकील की सलाह लें।","This is a general draft — consult a lawyer before final use."]};
 const t=k=>T[k]?T[k][IDX[L]]:k,esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let S={},cat='all',lastTrack=null,revLoaded=false,sub='topics';
 
@@ -43,8 +46,9 @@ async function call(fn,body){const r=await apiFetch(fn,{method:'POST',body:JSON.
 function fail(el,e,extra){console.error(e);msg(el,'err',esc(t('err_net'))+'<br><small>'+esc(e&&e.message||'')+'</small>'+(extra||''))}
 function waLink(text){return 'https://wa.me/'+C.whatsappNumber+'?text='+encodeURIComponent(text)}
 
+function fillIcons(){$$('[data-ic]').forEach(e=>{if(!e.dataset.filled&&window.LHI_ICONS[e.dataset.ic]){e.innerHTML=window.LHI_ICONS[e.dataset.ic];e.dataset.filled='1'}})}
 function applyText(){
-  $$('[data-t]').forEach(e=>e.textContent=t(e.dataset.t));$$('[data-p]').forEach(e=>e.placeholder=t(e.dataset.p));
+  fillIcons();$$('[data-t]').forEach(e=>e.textContent=t(e.dataset.t));$$('[data-p]').forEach(e=>e.placeholder=t(e.dataset.p));
   $$('[data-ex]').forEach(b=>b.textContent=t(b.dataset.ex));$$('#lang button').forEach(b=>b.classList.toggle('on',b.dataset.l===L));
   document.documentElement.lang=L;
   const cur=$('#fCat').value;$('#fCat').innerHTML=Object.values(D.TOPICS).map(x=>'<option value="'+esc(x.title.en)+'">'+esc(x.title[L])+'</option>').join('')+'<option value="Other">'+esc(t('f_other'))+'</option>';if(cur)$('#fCat').value=cur;
@@ -64,7 +68,7 @@ function route(){
 function buildCats(){$('#cats').innerHTML=['all','rights','directive','duties','judiciary','structure'].map(c=>'<button data-c="'+c+'" class="'+(c===cat?'on':'')+'">'+esc(t('c_'+c))+'</button>').join('')}
 function renderLearn(){
   $('#l-topics').innerHTML=Object.keys(D.TOPICS).map(k=>{const x=D.TOPICS[k];return '<details class="card acc"><summary>'+esc(x.title[L])+'</summary>'+x.sections.map(s=>'<h4>'+esc(s.heading[L])+'</h4><ul>'+s.items[L].map(i=>'<li>'+esc(i)+'</li>').join('')+'</ul>').join('')+'</details>'}).join('');
-  $('#l-docs').innerHTML=D.DOCS.map(d=>'<details class="card acc"><summary><span class="ic">'+d.icon+'</span>'+esc(d.title[L])+'</summary><p class="mut">'+esc(d.desc[L])+'</p><ul>'+d.points[L].map(i=>'<li>'+esc(i)+'</li>').join('')+'</ul></details>').join('');
+  $('#l-docs').innerHTML=D.DOCS.map(d=>'<details class="card acc"><summary><span class="ic">'+d.icon+'</span>'+esc(d.title[L])+'</summary><p class="mut">'+esc(d.desc[L])+'</p><ul>'+d.points[L].map(i=>'<li>'+esc(i)+'</li>').join('')+'</ul>'+(window.LHI_PDF&&window.LHI_PDF.FIELDS[d.key]?'<button class="btn gold sm" data-pdf="'+d.key+'" style="margin:4px 16px 16px">'+esc(t('pdf_btn'))+'</button>':'')+'</details>').join('');
   const q=$('#q').value.trim().toLowerCase(),list=D.ARTICLES.filter(a=>(cat==='all'||a.cat===cat)&&(!q||(a.num+' '+a.title.mr+' '+a.title.hi+' '+a.title.en+' '+a.sum[L]).toLowerCase().indexOf(q)>=0));
   $('#arts').innerHTML=list.length?list.map(a=>'<details class="card acc art"><summary>'+esc(a.title[L])+'</summary><p>'+esc(a.sum[L])+'</p></details>').join(''):'<p class="mut">—</p>';
 }
@@ -101,11 +105,30 @@ async function sendReview(){
   const out=$('#rOut'),name=$('#rName').value.trim(),m=$('#rMsg').value.trim();if(!name||!m)return msg(out,'err',esc(t('r_req')));
   $('#rBtn').disabled=true;try{await call('submit-review',{name:name,message:m,rating:$('#rRate').value,lang:L});msg(out,'ok',esc(t('r_ok')));$('#rMsg').value=''}catch(e){fail(out,e)}$('#rBtn').disabled=false;
 }
+
+/* ---- PDF फॉर्म ---- */
+function openPdfForm(key){
+  const fields=window.LHI_PDF.FIELDS[key];if(!fields)return;
+  const html='<button class="modal-close" id="pdfClose">&times;</button><h3>'+esc(t('pdf_btn'))+'</h3><div class="pdf-disc">'+esc(t('pdf_note'))+'</div>'+
+   fields.map(fd=>'<label>'+esc(fd.label[L])+'</label>'+(fd.type==='ta'?'<textarea data-f="'+fd.id+'"></textarea>':'<input data-f="'+fd.id+'" type="'+(fd.type==='date'?'date':'text')+'">')).join('')+
+   '<button class="btn" id="pdfGo" style="width:100%;margin-top:16px">'+esc(t('pdf_dl'))+'</button><div class="msg hide" id="pdfOut"></div>';
+  $('#pdfSheet').innerHTML=html;$('#pdfSheet').dataset.key=key;$('#pdfModal').classList.remove('hide');
+}
+function closePdfForm(){$('#pdfModal').classList.add('hide');$('#pdfSheet').innerHTML=''}
+async function generatePdf(){
+  const key=$('#pdfSheet').dataset.key,fields=window.LHI_PDF.FIELDS[key],v={},out=$('#pdfOut'),b=$('#pdfGo');
+  fields.forEach(fd=>v[fd.id]=$('#pdfSheet').querySelector('[data-f="'+fd.id+'"]').value.trim());
+  b.disabled=true;msg(out,'info',esc(t('pdf_making')));
+  try{await window.LHI_PDF.download(key,v,L,fields);msg(out,'ok',esc(t('pdf_dl'))+' ✔');}
+  catch(e){console.error(e);msg(out,'err',esc(t('pdf_err')))}
+  b.disabled=false;
+}
 /* ---- wiring ---- */
 $('#lang').onclick=e=>{const b=e.target.closest('button');if(!b)return;L=b.dataset.l;try{localStorage.setItem('lhi-lang',L)}catch(x){}applyText()};
 $('#sub').onclick=e=>{const b=e.target.closest('button');if(b)location.hash='learn-'+b.dataset.s};
 $('#cats').onclick=e=>{const b=e.target.closest('button');if(!b)return;cat=b.dataset.c;buildCats();renderLearn()};
 $('#q').oninput=renderLearn;$('#askBtn').onclick=ask;$('#fBtn').onclick=submitHelp;$('#trBtn').onclick=track;$('#rBtn').onclick=sendReview;
+document.addEventListener('click',e=>{const b=e.target.closest('[data-pdf]');if(b)openPdfForm(b.dataset.pdf);if(e.target.id==='pdfClose'||e.target.id==='pdfModal')closePdfForm();if(e.target.id==='pdfGo')generatePdf()});
 $$('[data-ex]').forEach(b=>b.onclick=()=>{$('#askQ').value=t(b.dataset.ex);$('#askQ').focus()});
 window.addEventListener('hashchange',route);
 try{const last=localStorage.getItem('lhi-last');if(last)$('#trId').value=last}catch(e){}

@@ -3,8 +3,8 @@
   "short_name": "LHI Admin",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#f6f1e7",
-  "theme_color": "#16233f",
+  "background_color": "#f8fafc",
+  "theme_color": "#0b3d91",
   "description": "Legal Helpdesk India administration dashboard",
   "icons": [
     {

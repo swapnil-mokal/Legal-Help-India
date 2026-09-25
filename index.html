@@ -5,10 +5,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Legal Helpdesk India — कायदेशीर मार्गदर्शन</title>
 <meta name="description" content="Legal Helpdesk India — भारतीय संविधान, नागरिक हक्क आणि कायदेशीर मार्गदर्शन. मराठी, हिंदी, English.">
-<meta name="theme-color" content="#14325c">
+<meta name="theme-color" content="#0b3d91">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/png" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared/ui.css">
 <style>.sub{margin-bottom:6px}.stars{color:var(--gold);letter-spacing:2px}.copy{font-family:monospace;background:#fff;padding:2px 8px;border-radius:6px;font-weight:700}.art b{color:var(--gold);margin-right:6px}</style>
 </head>
@@ -24,12 +26,12 @@
     <div class="row"><a class="btn gold" href="#ask" data-t="cta_ask"></a><a class="btn light" href="#help" id="ctaHelp" data-t="cta_help"></a></div></div>
   <div class="note hide" id="notice"></div>
   <div class="grid2">
-    <a class="tile" href="#ask"><i>💬</i><span data-t="nav_ask"></span></a>
-    <a class="tile" href="#help"><i>🤝</i><span data-t="nav_help"></span></a>
-    <a class="tile" href="#help-track"><i>🔎</i><span data-t="t_track"></span></a>
-    <a class="tile" href="#learn-topics"><i>⚖️</i><span data-t="t_topics"></span></a>
-    <a class="tile" href="#learn-docs"><i>📄</i><span data-t="t_docs"></span></a>
-    <a class="tile" href="#learn-const"><i>📖</i><span data-t="t_const"></span></a>
+    <a class="tile" href="#ask"><i class="ic-i" data-ic="ai-guide"></i><span data-t="nav_ask"></span></a>
+    <a class="tile" href="#help"><i class="ic-i" data-ic="consultation"></i><span data-t="nav_help"></span></a>
+    <a class="tile" href="#help-track"><i class="ic-i" data-ic="requests"></i><span data-t="t_track"></span></a>
+    <a class="tile" href="#learn-topics"><i class="ic-i" data-ic="rights"></i><span data-t="t_topics"></span></a>
+    <a class="tile" href="#learn-docs"><i class="ic-i" data-ic="documents"></i><span data-t="t_docs"></span></a>
+    <a class="tile" href="#learn-const"><i class="ic-i" data-ic="constitution"></i><span data-t="t_const"></span></a>
   </div>
   <div class="card"><h3 data-t="contact"></h3>
     <div class="row" style="margin-top:10px"><a class="btn ok" id="cWa" target="_blank" rel="noopener">WhatsApp</a><a class="btn ghost" id="cCall" data-t="call"></a><a class="btn ghost" id="cMail" data-t="email"></a></div></div>
@@ -72,12 +74,17 @@
     <label data-t="r_msg"></label><textarea id="rMsg" maxlength="600"></textarea>
     <button class="btn" id="rBtn" style="width:100%;margin-top:14px" data-t="r_send"></button><div class="msg hide" id="rOut"></div></div>
 </section>
+<div class="modal hide" id="pdfModal"><div class="sheet" id="pdfSheet"></div></div>
 </main>
 <footer data-t="disc"></footer>
-<nav class="nav" id="nav"><a href="#home"><i>🏠</i><span data-t="nav_home"></span></a><a href="#ask"><i>💬</i><span data-t="nav_ask"></span></a><a href="#help"><i>🤝</i><span data-t="nav_help"></span></a><a href="#learn"><i>📚</i><span data-t="nav_learn"></span></a><a href="#reviews"><i>⭐</i><span data-t="nav_rev"></span></a></nav>
+<nav class="nav" id="nav"><a href="#home"><i class="ic-i" data-ic="home"></i><span data-t="nav_home"></span></a><a href="#ask"><i class="ic-i" data-ic="ai-guide"></i><span data-t="nav_ask"></span></a><a href="#help"><i class="ic-i" data-ic="help"></i><span data-t="nav_help"></span></a><a href="#learn"><i class="ic-i" data-ic="laws"></i><span data-t="nav_learn"></span></a><a href="#reviews"><i class="ic-i" data-ic="messages"></i><span data-t="nav_rev"></span></a></nav>
 
+<script src="shared/icons.js"></script>
 <script src="shared/config.js"></script>
+<script src="shared/pdf.js"></script>
 <script src="shared/content.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
