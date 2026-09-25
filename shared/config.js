@@ -1,6 +1,6 @@
 /* Legal Helpdesk India — shared public configuration. Never put secrets here. */
 window.LHI_CONFIG = {
-  apiUrl: "https://script.google.com/macros/s/AKfycbw3fCaaI4vqtclHyyXWPjFvLR2gSyxvPv1My_f2r5DauCbX9iojw-pvAvS8cV0QMlGO/exec",
+  apiUrl: "https://script.google.com/macros/s/AKfycbzoOa1-tZCWfhCNB_x8zy05xWgtf6YvuwtvRsQWm9apH6O7reTF3BZ5UCpJDYt-0GU2ow/exec",
   whatsappNumber: "919870020674",
   whatsappDisplay: "+91 98700 20674",
   email: "sbm.group.legal.services@gmail.com",

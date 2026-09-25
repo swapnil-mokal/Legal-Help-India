@@ -21,6 +21,8 @@ const SYS_PROMPTS = {
 const LEGAL_SHEET = "Legal Help Requests";
 const LEGAL_COLS = ["submittedAt","name","mobile","email","city","district","category","description","preferredTime","status","lang","id","notes"];
 const LEGAL_HEADERS = ["Submitted At","Name","Mobile","Email","City","District","Category","Description","Preferred Time","Status","Language","Request ID","Notes"];
+const PDF_SHEET = "PDF Downloads";
+const PDF_HEADERS = ["Submitted At","Document","Name","Mobile","Filename"];
 const REVIEW_SHEET = "Reviews";
 const REVIEW_COLS = ["submittedAt","name","rating","message","lang","id","status"];
 const REVIEW_HEADERS = ["Submitted At","Name","Rating","Message","Language","Review ID","Status"];
@@ -33,6 +35,7 @@ function doPost(e) {
     switch (d._fn) {
       case "ask": return out_(ask_(d));
       case "submit-legal-help": return out_(locked_(function () { return submitLegal_(d); }));
+      case "log-pdf-download": return out_(locked_(function () { return logPdfDownload_(d); }));
       case "submit-review": return out_(locked_(function () { return submitReview_(d); }));
       case "reviews": return out_(publicReviews_());
       case "admin-reviews":
@@ -129,6 +132,32 @@ function submitLegal_(d) {
       "Legal Helpdesk India\n\nRequest ID: " + r.id + "\nनाव: " + name + "\nमोबाईल: " + mobile + "\nईमेल: " + r.email + "\nशहर: " + r.city + "\nजिल्हा: " + r.district + "\nप्रकार: " + r.category + "\nसमस्या: " + description + "\nPreferred Time: " + r.preferredTime});
   } catch (mailErr) {}
   return { ok: true, requestId: r.id, status: r.status, whatsappNumber: "919870020674" };
+}
+
+function isValidIndianMobile_(m){return /^[6-9]\d{9}$/.test(m);}
+
+function logPdfDownload_(d) {
+  const name = str_(d.name, 100);
+  const mobile = (d.mobile || "").toString().replace(/\D/g, "");
+  const docKey = str_(d.docKey, 40), docTitle = str_(d.docTitle, 150), filename = str_(d.filename, 150);
+  if (!name) return { error: "नाव आवश्यक आहे.", _status: 400 };
+  if (!isValidIndianMobile_(mobile)) return { error: "कृपया वैध १० अंकी मोबाईल क्रमांक टाका.", _status: 400 };
+  if (!docKey) return { error: "invalid document", _status: 400 };
+  sheet_(PDF_SHEET, PDF_HEADERS).appendRow([safe_(new Date().toISOString()), safe_(docTitle || docKey), safe_(name), safe_(mobile), safe_(filename)]);
+  const inbox = "sbm.group.legal.services@gmail.com";
+  try {
+    const opts = {
+      to: inbox,
+      subject: "PDF फॉर्म डाउनलोड - " + docTitle + " - " + name,
+      body: "Legal Helpdesk India\n\nकागदपत्र: " + docTitle + "\nनाव: " + name + "\nमोबाईल: " + mobile + "\nवेळ: " + new Date().toLocaleString("en-IN")
+    };
+    if (d.pdfBase64) {
+      const raw = String(d.pdfBase64).split(",").pop();
+      opts.attachments = [Utilities.newBlob(Utilities.base64Decode(raw), "application/pdf", filename || (docKey + ".pdf"))];
+    }
+    MailApp.sendEmail(opts);
+  } catch (mailErr) {}
+  return { ok: true };
 }
 
 function submitReview_(d) {

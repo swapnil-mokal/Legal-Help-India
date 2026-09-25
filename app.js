@@ -37,7 +37,12 @@ disc:["हे ऍप सामान्य कायदेशीर माहि
 sending:["पाठवत आहे…","भेज रहे हैं…","Sending…"],loading:["लोड होत आहे…","लोड हो रहा है…","Loading…"],
 pdf_btn:["PDF फॉर्म भरा","PDF फॉर्म भरें","Fill PDF form"],pdf_dl:["PDF डाउनलोड करा","PDF डाउनलोड करें","Download PDF"],
 pdf_making:["PDF तयार होत आहे…","PDF बन रही है…","Preparing PDF…"],pdf_err:["PDF बनवता आले नाही. पुन्हा प्रयत्न करा.","PDF नहीं बन सकी। पुनः प्रयास करें।","Could not create the PDF. Please try again."],
-pdf_note:["हा सर्वसाधारण मसुदा आहे, अंतिम वापरापूर्वी वकिलाचा सल्ला घ्या.","यह एक सामान्य मसौदा है, अंतिम उपयोग से पहले वकील की सलाह लें।","This is a general draft — consult a lawyer before final use."]};
+pdf_note:["हा सर्वसाधारण मसुदा आहे, अंतिम वापरापूर्वी वकिलाचा सल्ला घ्या.","यह एक सामान्य मसौदा है, अंतिम उपयोग से पहले वकील की सलाह लें।","This is a general draft — consult a lawyer before final use."],
+pdf_mobile:["तुमचा मोबाईल क्रमांक (पडताळणीसाठी) *","आपका मोबाइल नंबर (सत्यापन हेतु) *","Your mobile number (for verification) *"],
+pdf_missing:["कृपया खालील माहिती भरा:","कृपया निम्नलिखित जानकारी भरें:","Please fill in the following:"],
+pdf_badmobile:["कृपया वैध १० अंकी मोबाईल क्रमांक टाका (उदा. ९८७६५४३२१०).","कृपया मान्य 10 अंकों का मोबाइल नंबर डालें (जैसे 9876543210)।","Please enter a valid 10-digit mobile number (e.g. 9876543210)."],
+pdf_done:["PDF यशस्वीरित्या डाउनलोड झाला आणि तुमच्या तपशिलांची नोंद आमच्याकडे झाली आहे.","PDF सफलतापूर्वक डाउनलोड हो गई और आपका विवरण हमारे पास दर्ज हो गया है।","Your PDF has been downloaded and your details have been recorded with us."],
+pdf_done2:["PDF डाउनलोड झाला, पण नोंद पाठवता आली नाही (इंटरनेट तपासा).","PDF डाउनलोड हो गई, पर विवरण नहीं भेजा जा सका (इंटरनेट जाँचें)।","PDF downloaded, but we couldn't record it (please check your internet)."]};
 const t=k=>T[k]?T[k][IDX[L]]:k,esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let S={},cat='all',lastTrack=null,revLoaded=false,sub='topics';
 
@@ -110,17 +115,29 @@ async function sendReview(){
 function openPdfForm(key){
   const fields=window.LHI_PDF.FIELDS[key];if(!fields)return;
   const html='<button class="modal-close" id="pdfClose">&times;</button><h3>'+esc(t('pdf_btn'))+'</h3><div class="pdf-disc">'+esc(t('pdf_note'))+'</div>'+
-   fields.map(fd=>'<label>'+esc(fd.label[L])+'</label>'+(fd.type==='ta'?'<textarea data-f="'+fd.id+'"></textarea>':'<input data-f="'+fd.id+'" type="'+(fd.type==='date'?'date':'text')+'">')).join('')+
+   fields.map(fd=>'<label>'+esc(fd.label[L])+(fd.opt?'':' *')+'</label>'+(fd.type==='ta'?'<textarea data-f="'+fd.id+'"></textarea>':'<input data-f="'+fd.id+'" type="'+(fd.type==='date'?'date':'text')+'">')).join('')+
+   '<label>'+esc(t('pdf_mobile'))+'</label><input data-f="_mobile" type="tel" inputmode="numeric" maxlength="10">'+
    '<button class="btn" id="pdfGo" style="width:100%;margin-top:16px">'+esc(t('pdf_dl'))+'</button><div class="msg hide" id="pdfOut"></div>';
   $('#pdfSheet').innerHTML=html;$('#pdfSheet').dataset.key=key;$('#pdfModal').classList.remove('hide');
 }
 function closePdfForm(){$('#pdfModal').classList.add('hide');$('#pdfSheet').innerHTML=''}
+function isValidMobile(m){return /^[6-9]\d{9}$/.test(m)}
 async function generatePdf(){
   const key=$('#pdfSheet').dataset.key,fields=window.LHI_PDF.FIELDS[key],v={},out=$('#pdfOut'),b=$('#pdfGo');
   fields.forEach(fd=>v[fd.id]=$('#pdfSheet').querySelector('[data-f="'+fd.id+'"]').value.trim());
+  const mobile=$('#pdfSheet').querySelector('[data-f="_mobile"]').value.trim().replace(/\D/g,'');
+  const missing=fields.filter(fd=>!fd.opt&&!v[fd.id]).map(fd=>fd.label[L]);
+  if(!mobile)missing.push(t('pdf_mobile').replace(' *',''));
+  if(missing.length){alert(t('pdf_missing')+'\n\n• '+missing.join('\n• '));return}
+  if(!isValidMobile(mobile)){alert(t('pdf_badmobile'));return}
   b.disabled=true;msg(out,'info',esc(t('pdf_making')));
-  try{await window.LHI_PDF.download(key,v,L,fields);msg(out,'ok',esc(t('pdf_dl'))+' ✔');}
-  catch(e){console.error(e);msg(out,'err',esc(t('pdf_err')))}
+  try{
+    const doc=D.DOCS.find(d=>d.key===key),res=await window.LHI_PDF.download(key,v,L,fields);
+    try{
+      await call('log-pdf-download',{name:v[fields[0].id]||'—',mobile:mobile,docKey:key,docTitle:doc?doc.title[L]:key,filename:res.filename,pdfBase64:res.dataUri,lang:L});
+      msg(out,'ok',esc(t('pdf_done')));alert(t('pdf_done'));
+    }catch(logErr){console.error(logErr);msg(out,'info',esc(t('pdf_done2')));alert(t('pdf_done2'))}
+  }catch(e){console.error(e);msg(out,'err',esc(t('pdf_err')))}
   b.disabled=false;
 }
 /* ---- wiring ---- */
