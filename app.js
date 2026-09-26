@@ -48,7 +48,13 @@ topic_faq:["सामान्य प्रश्न","सामान्य प
 topic_ask_btn:["या विषयावर AI ला विचारा","इस विषय पर AI से पूछें","Ask AI about this topic"],
 topic_pdf_btn:["या विषयाची PDF बनवा","इस विषय की PDF बनाएँ","Download this topic as PDF"],
 topic_ask_prefill:["मला या विषयाबद्दल अधिक माहिती हवी आहे: ","मुझे इस विषय के बारे में अधिक जानकारी चाहिए: ","I would like more information about this topic: "],
-topic_pdf_done:["या विषयाची PDF यशस्वीरित्या डाउनलोड झाली.","इस विषय की PDF सफलतापूर्वक डाउनलोड हो गई।","This topic's PDF has been downloaded successfully."]};
+topic_pdf_done:["या विषयाची PDF यशस्वीरित्या डाउनलोड झाली.","इस विषय की PDF सफलतापूर्वक डाउनलोड हो गई।","This topic's PDF has been downloaded successfully."],
+share_btn:["शेअर करा","शेयर करें","Share"],share_copied:["मजकूर कॉपी झाला आहे, कुठेही पेस्ट करा.","पाठ कॉपी हो गया है, कहीं भी पेस्ट करें।","Text copied — paste it anywhere."],
+share_app_btn:["हे ऍप इतरांना पाठवा","यह ऐप दूसरों को भेजें","Share this app"],
+share_app_text:["Legal Helpdesk India — मोफत कायदेशीर माहिती व मदत या ऍपवर मिळवा:","Legal Helpdesk India — मुफ्त कानूनी जानकारी व मदद इस ऐप पर पाएँ:","Legal Helpdesk India — get free legal information and help on this app:"],
+about_title:["आमच्याबद्दल","हमारे बारे में","About Us"],
+about_bio:["श्री. स्वप्नील मोकळ (M.Sc. CS) — माजी अध्यक्ष, संस्कार फाउंडेशन. Legal Help India टीमचे कायदेशीर सल्लागार.","श्री स्वप्निल मोकल (M.Sc. CS) — पूर्व अध्यक्ष, संस्कार फाउंडेशन। Legal Help India टीम के कानूनी सलाहकार।","Mr. Swapnil Mokal (M.Sc. CS) — Ex-President, Sanskar Foundation. Legal Advisor, Legal Help India Team."],
+about_bio2:["डॉ. प्रशांत आभंग — वकील, मुंबई उच्च न्यायालय. Legal Help India टीमचे कायदेशीर सल्लागार.","डॉ. प्रशांत आभंग — अधिवक्ता, मुंबई उच्च न्यायालय। Legal Help India टीम के कानूनी सलाहकार।","Dr. Prashant Abhang — Advocate, Bombay High Court. Legal Advisor, Legal Help India Team."]};
 const t=k=>T[k]?T[k][IDX[L]]:k,esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let S={},cat='all',lastTrack=null,revLoaded=false,sub='topics';
 
@@ -91,9 +97,19 @@ function renderLearn(){
   $('#arts').innerHTML=list.length?list.map(a=>'<details class="card acc art"><summary>'+esc(a.title[L])+'</summary><p>'+esc(a.sum[L])+'</p></details>').join(''):'<p class="mut">—</p>';
 }
 /* ---- Ask AI ---- */
+let lastAnswer='';
 async function ask(){
   const p=$('#askQ').value.trim();if(!p)return;const out=$('#askOut'),b=$('#askBtn');b.disabled=true;msg(out,'info',esc(t('ask_wait')));
-  try{const d=await call('ask',{problem:p,lang:L});if(!d.text)throw new Error('empty');msg(out,'ok pre','');out.textContent=d.text}catch(e){fail(out,e)}b.disabled=false;
+  try{const d=await call('ask',{problem:p,lang:L});if(!d.text)throw new Error('empty');lastAnswer=d.text;
+    out.className='msg ok';out.innerHTML='<div class="pre">'+esc(d.text)+'</div><button class="btn ghost sm" id="shareAnsBtn" style="margin-top:10px">'+esc(t('share_btn'))+'</button>';
+  }catch(e){fail(out,e)}b.disabled=false;
+}
+async function shareContent(text,url){
+  const shareData={title:'Legal Helpdesk India',text:text};if(url)shareData.url=url;
+  try{if(navigator.share){await navigator.share(shareData);return}}catch(e){if(e&&e.name==='AbortError')return}
+  const waText=text+(url?'\n'+url:'');
+  try{window.open(waLink(waText),'_blank')}
+  catch(e){try{await navigator.clipboard.writeText(waText);alert(t('share_copied'))}catch(e2){}}
 }
 /* ---- Help form ---- */
 async function submitHelp(){
@@ -170,6 +186,8 @@ document.addEventListener('click',e=>{
   const ab=e.target.closest('[data-asktopic]');
   if(ab){const topic=D.TOPICS[ab.dataset.asktopic];location.hash='#ask';$('#askQ').value=t('topic_ask_prefill')+(topic?topic.title[L]:'');setTimeout(()=>$('#askQ').focus(),50)}
   const pb=e.target.closest('[data-pdftopic]');if(pb)downloadTopicPdf(pb.dataset.pdftopic);
+  if(e.target.id==='shareAnsBtn'&&lastAnswer)shareContent(lastAnswer);
+  if(e.target.id==='shareAppBtn')shareContent(t('share_app_text'),location.origin+location.pathname.replace(/[^\/]*$/,''));
 });
 $$('[data-ex]').forEach(b=>b.onclick=()=>{$('#askQ').value=t(b.dataset.ex);$('#askQ').focus()});
 window.addEventListener('hashchange',route);

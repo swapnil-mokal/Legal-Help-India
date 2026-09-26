@@ -106,7 +106,11 @@ function contactFooter(L){
 function buildTopicHTML(key,topic,ARTICLES,L){
   const rel=(topic.related||[]).map(n=>ARTICLES.find(a=>a.num===n)).filter(Boolean);
   let body='<div style="font-family:system-ui,-apple-system,\'Segoe UI\',Roboto,\'Noto Sans Devanagari\',\'Noto Sans\',Arial,sans-serif;font-size:13px;line-height:1.8;color:#111;width:680px;padding:36px;background:#fff">';
-  body+='<div style="text-align:center;font-size:19px;font-weight:700;margin-bottom:4px">'+esc((topic.icon||'')+' '+topic.title[L])+'</div>';
+  const iconRaw=topic.icon||'';
+  const iconHtml=iconRaw.trim().indexOf('<svg')===0
+    ? '<span style="display:inline-block;width:20px;height:20px;vertical-align:-4px;color:#0b3d91">'+iconRaw+'</span> '
+    : (iconRaw?esc(iconRaw)+' ':'');
+  body+='<div style="text-align:center;font-size:19px;font-weight:700;margin-bottom:4px">'+iconHtml+esc(topic.title[L])+'</div>';
   body+='<div style="text-align:center;font-size:11px;color:#888;margin-bottom:18px">Legal Helpdesk India</div>';
   (topic.sections||[]).forEach(s=>{
     body+='<div style="font-weight:700;font-size:14px;margin:14px 0 4px;color:#0b3d91">'+esc(s.heading[L])+'</div><ul style="margin:0 0 6px 20px;padding:0">'+s.items[L].map(i=>'<li style="margin-bottom:3px">'+esc(i)+'</li>').join('')+'</ul>';

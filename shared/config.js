@@ -5,7 +5,10 @@ window.LHI_CONFIG = {
   whatsappDisplay: "+91 98700 20674",
   email: "sbm.group.legal.services@gmail.com",
   brand: "Legal Helpdesk India",
-  tagline: "भारतीय संविधान, नागरिक हक्क आणि कायदेशीर मार्गदर्शन"
+  tagline: "भारतीय संविधान, नागरिक हक्क आणि कायदेशीर मार्गदर्शन",
+  // Admin पॅनलमध्ये "Google Sheet उघडा" बटण दाखवण्यासाठी तुमच्या Sheet चा शेअर लिंक इथे पेस्ट करा
+  // (Sheet उघडा → Share → "Anyone with the link" → Viewer/Editor → लिंक कॉपी करा)
+  sheetUrl: "PASTE_YOUR_GOOGLE_SHEET_SHARE_LINK_HERE"
 };
 
 async function apiFetch(path, opts) {
