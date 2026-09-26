@@ -94,10 +94,36 @@ function buildHTML(key,v,L,fields){
   body+='<div style="margin-bottom:22px;white-space:pre-line">'+fill(cfg.close[L],v)+'</div>';
   if(cfg.sign2){body+='<table style="width:100%;margin-top:40px"><tr><td style="width:50%">________________<br>'+esc(cfg.sign2[L][0])+'</td><td style="width:50%">________________<br>'+esc(cfg.sign2[L][1])+'</td></tr></table>'}
   else{body+='<div style="margin-top:34px">'+esc(cfg.sign[L])+'<br><br>________________</div>'}
-  body+='<div style="margin-top:26px;font-size:11px;color:#666">'+esc(DISC[L])+'<br>Legal Helpdesk India — '+new Date().toLocaleDateString('en-IN')+'</div></div>';
+  body+=contactFooter(L)+'</div>';
   return body;
 }
-async function download(key,v,L,fields){
+function contactFooter(L){
+  const cfg=(window.LHI_CONFIG)||{};
+  const phone=(cfg.whatsappNumber||'').replace(/^91/,'');
+  const line=tr('सल्ल्यासाठी संपर्क करा:','सलाह के लिए संपर्क करें:','For advice, contact us:')[L];
+  return '<div style="margin-top:26px;font-size:11px;color:#666">'+esc(DISC[L])+'<br><b>'+esc(line)+'</b> 📞 '+esc(phone||'—')+' &nbsp; ✉️ '+esc(cfg.email||'—')+'<br>Legal Helpdesk India — '+new Date().toLocaleDateString('en-IN')+'</div>';
+}
+function buildTopicHTML(key,topic,ARTICLES,L){
+  const rel=(topic.related||[]).map(n=>ARTICLES.find(a=>a.num===n)).filter(Boolean);
+  let body='<div style="font-family:system-ui,-apple-system,\'Segoe UI\',Roboto,\'Noto Sans Devanagari\',\'Noto Sans\',Arial,sans-serif;font-size:13px;line-height:1.8;color:#111;width:680px;padding:36px;background:#fff">';
+  body+='<div style="text-align:center;font-size:19px;font-weight:700;margin-bottom:4px">'+esc((topic.icon||'')+' '+topic.title[L])+'</div>';
+  body+='<div style="text-align:center;font-size:11px;color:#888;margin-bottom:18px">Legal Helpdesk India</div>';
+  (topic.sections||[]).forEach(s=>{
+    body+='<div style="font-weight:700;font-size:14px;margin:14px 0 4px;color:#0b3d91">'+esc(s.heading[L])+'</div><ul style="margin:0 0 6px 20px;padding:0">'+s.items[L].map(i=>'<li style="margin-bottom:3px">'+esc(i)+'</li>').join('')+'</ul>';
+  });
+  if(rel.length){
+    const T=tr('संबंधित संविधान कलमे','संबंधित संविधान अनुच्छेद','Related Constitutional Articles')[L];
+    body+='<div style="font-weight:700;font-size:14px;margin:14px 0 4px;color:#0b3d91">'+esc(T)+'</div><ul style="margin:0 0 6px 20px;padding:0">'+rel.map(a=>'<li style="margin-bottom:3px"><b>'+esc(a.title[L])+'</b> — '+esc(a.sum[L])+'</li>').join('')+'</ul>';
+  }
+  if((topic.faqs||[]).length){
+    const T=tr('सामान्य प्रश्न','सामान्य प्रश्न','Frequently Asked Questions')[L];
+    const QL=tr('प्र.','प्र.','Q.')[L],AL=tr('उ.','उ.','A.')[L];
+    body+='<div style="font-weight:700;font-size:14px;margin:14px 0 4px;color:#0b3d91">'+esc(T)+'</div>'+topic.faqs.map(f=>'<p style="margin:0 0 2px"><b>'+QL+'</b> '+esc(f.q[L])+'</p><p style="margin:0 0 10px;color:#333"><b>'+AL+'</b> '+esc(f.a[L])+'</p>').join('');
+  }
+  body+=contactFooter(L)+'</div>';
+  return body;
+}
+async function renderNodeToPdf(html,filenameBase){
   if(!(window.jspdf&&window.jspdf.jsPDF))throw new Error('pdf-lib-missing');
   if(!window.html2canvas)throw new Error('canvas-lib-missing');
   // महत्त्वाचे: html2canvas ला मोबाईल ब्राउझरमध्ये आतील भाग "पेंट" करता यावा म्हणून हा भाग
@@ -105,7 +131,7 @@ async function download(key,v,L,fields){
   // overflow:hidden चौकटीत लपवतो — त्यामुळे तो अदृश्य राहतो पण रेंडर मात्र होतो.
   const wrap=document.createElement('div');
   wrap.style.cssText='position:fixed;left:0;top:0;width:0;height:0;overflow:hidden;z-index:-1;opacity:1';
-  const host=document.createElement('div');host.style.cssText='background:#fff;width:680px';host.innerHTML=buildHTML(key,v,L,fields);
+  const host=document.createElement('div');host.style.cssText='background:#fff;width:680px';host.innerHTML=html;
   wrap.appendChild(host);document.body.appendChild(wrap);
   try{
     if(document.fonts&&document.fonts.ready){try{await document.fonts.ready}catch(e){}}
@@ -133,11 +159,19 @@ async function download(key,v,L,fields){
         y+=h;
       }
     }
-    const filename=(key+'-'+(v[fields[0].id]||'form')).replace(/[^a-zA-Z0-9\u0900-\u097F\-]+/g,'_').slice(0,60)+'.pdf';
+    const filename=filenameBase.replace(/[^a-zA-Z0-9\u0900-\u097F\-]+/g,'_').slice(0,60)+'.pdf';
     const dataUri=doc.output('datauristring');
     doc.save(filename);
     return {dataUri:dataUri,filename:filename};
   } finally { document.body.removeChild(wrap); }
 }
-return{FIELDS:FIELDS,download:download};
+async function download(key,v,L,fields){
+  return await renderNodeToPdf(buildHTML(key,v,L,fields), key+'-'+(v[fields[0].id]||'form'));
+}
+async function downloadTopic(key,topic,ARTICLES,L){
+  // टीप: ही विषय-माहितीची PDF आहे (कागदपत्र-फॉर्म नाही) — त्यामुळे ही कधीही ईमेलने
+  // Admin कडे पाठवली जात नाही किंवा Sheet मध्ये नोंदवली जात नाही; फक्त वापरकर्त्याच्या फोनवर डाउनलोड होते.
+  return await renderNodeToPdf(buildTopicHTML(key,topic,ARTICLES,L), 'topic-'+key);
+}
+return{FIELDS:FIELDS,download:download,downloadTopic:downloadTopic};
 })();

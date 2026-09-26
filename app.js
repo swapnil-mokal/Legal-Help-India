@@ -42,7 +42,13 @@ pdf_mobile:["तुमचा मोबाईल क्रमांक (पडत
 pdf_missing:["कृपया खालील माहिती भरा:","कृपया निम्नलिखित जानकारी भरें:","Please fill in the following:"],
 pdf_badmobile:["कृपया वैध १० अंकी मोबाईल क्रमांक टाका (उदा. ९८७६५४३२१०).","कृपया मान्य 10 अंकों का मोबाइल नंबर डालें (जैसे 9876543210)।","Please enter a valid 10-digit mobile number (e.g. 9876543210)."],
 pdf_done:["PDF यशस्वीरित्या डाउनलोड झाला आणि तुमच्या तपशिलांची नोंद आमच्याकडे झाली आहे.","PDF सफलतापूर्वक डाउनलोड हो गई और आपका विवरण हमारे पास दर्ज हो गया है।","Your PDF has been downloaded and your details have been recorded with us."],
-pdf_done2:["PDF डाउनलोड झाला, पण नोंद पाठवता आली नाही (इंटरनेट तपासा).","PDF डाउनलोड हो गई, पर विवरण नहीं भेजा जा सका (इंटरनेट जाँचें)।","PDF downloaded, but we couldn't record it (please check your internet)."]};
+pdf_done2:["PDF डाउनलोड झाला, पण नोंद पाठवता आली नाही (इंटरनेट तपासा).","PDF डाउनलोड हो गई, पर विवरण नहीं भेजा जा सका (इंटरनेट जाँचें)।","PDF downloaded, but we couldn't record it (please check your internet)."],
+topic_related:["संबंधित संविधान कलमे","संबंधित संविधान अनुच्छेद","Related Constitutional Articles"],
+topic_faq:["सामान्य प्रश्न","सामान्य प्रश्न","Frequently Asked Questions"],
+topic_ask_btn:["या विषयावर AI ला विचारा","इस विषय पर AI से पूछें","Ask AI about this topic"],
+topic_pdf_btn:["या विषयाची PDF बनवा","इस विषय की PDF बनाएँ","Download this topic as PDF"],
+topic_ask_prefill:["मला या विषयाबद्दल अधिक माहिती हवी आहे: ","मुझे इस विषय के बारे में अधिक जानकारी चाहिए: ","I would like more information about this topic: "],
+topic_pdf_done:["या विषयाची PDF यशस्वीरित्या डाउनलोड झाली.","इस विषय की PDF सफलतापूर्वक डाउनलोड हो गई।","This topic's PDF has been downloaded successfully."]};
 const t=k=>T[k]?T[k][IDX[L]]:k,esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let S={},cat='all',lastTrack=null,revLoaded=false,sub='topics';
 
@@ -72,7 +78,14 @@ function route(){
 /* ---- Learn ---- */
 function buildCats(){$('#cats').innerHTML=['all','rights','directive','duties','judiciary','structure'].map(c=>'<button data-c="'+c+'" class="'+(c===cat?'on':'')+'">'+esc(t('c_'+c))+'</button>').join('')}
 function renderLearn(){
-  $('#l-topics').innerHTML=Object.keys(D.TOPICS).map(k=>{const x=D.TOPICS[k];return '<details class="card acc"><summary>'+esc(x.title[L])+'</summary>'+x.sections.map(s=>'<h4>'+esc(s.heading[L])+'</h4><ul>'+s.items[L].map(i=>'<li>'+esc(i)+'</li>').join('')+'</ul>').join('')+'</details>'}).join('');
+  $('#l-topics').innerHTML=Object.keys(D.TOPICS).map(k=>{const x=D.TOPICS[k];
+    const rel=(x.related||[]).map(n=>D.ARTICLES.find(a=>a.num===n)).filter(Boolean);
+    const relHtml=rel.length?'<h4>'+esc(t('topic_related'))+'</h4><ul>'+rel.map(a=>'<li><b>'+esc(a.title[L])+'</b> — '+esc(a.sum[L])+'</li>').join('')+'</ul>':'';
+    const faqHtml=(x.faqs||[]).length?'<h4>'+esc(t('topic_faq'))+'</h4>'+x.faqs.map(f=>'<p style="margin-bottom:2px"><b>प्र.</b> '+esc(f.q[L])+'</p><p class="mut" style="margin-bottom:10px"><b>उ.</b> '+esc(f.a[L])+'</p>').join(''):'';
+    return '<details class="card acc"><summary><span class="ic">'+(x.icon||'⚖️')+'</span>'+esc(x.title[L])+'</summary>'+
+      x.sections.map(s=>'<h4>'+esc(s.heading[L])+'</h4><ul>'+s.items[L].map(i=>'<li>'+esc(i)+'</li>').join('')+'</ul>').join('')+relHtml+faqHtml+
+      '<div class="row" style="margin:6px 16px 16px"><button class="btn ghost sm" data-asktopic="'+k+'">'+esc(t('topic_ask_btn'))+'</button><button class="btn gold sm" data-pdftopic="'+k+'">'+esc(t('topic_pdf_btn'))+'</button></div>'+
+    '</details>'}).join('');
   $('#l-docs').innerHTML=D.DOCS.map(d=>'<details class="card acc"><summary><span class="ic">'+d.icon+'</span>'+esc(d.title[L])+'</summary><p class="mut">'+esc(d.desc[L])+'</p><ul>'+d.points[L].map(i=>'<li>'+esc(i)+'</li>').join('')+'</ul>'+(window.LHI_PDF&&window.LHI_PDF.FIELDS[d.key]?'<button class="btn gold sm" data-pdf="'+d.key+'" style="margin:4px 16px 16px">'+esc(t('pdf_btn'))+'</button>':'')+'</details>').join('');
   const q=$('#q').value.trim().toLowerCase(),list=D.ARTICLES.filter(a=>(cat==='all'||a.cat===cat)&&(!q||(a.num+' '+a.title.mr+' '+a.title.hi+' '+a.title.en+' '+a.sum[L]).toLowerCase().indexOf(q)>=0));
   $('#arts').innerHTML=list.length?list.map(a=>'<details class="card acc art"><summary>'+esc(a.title[L])+'</summary><p>'+esc(a.sum[L])+'</p></details>').join(''):'<p class="mut">—</p>';
@@ -145,7 +158,19 @@ $('#lang').onclick=e=>{const b=e.target.closest('button');if(!b)return;L=b.datas
 $('#sub').onclick=e=>{const b=e.target.closest('button');if(b)location.hash='learn-'+b.dataset.s};
 $('#cats').onclick=e=>{const b=e.target.closest('button');if(!b)return;cat=b.dataset.c;buildCats();renderLearn()};
 $('#q').oninput=renderLearn;$('#askBtn').onclick=ask;$('#fBtn').onclick=submitHelp;$('#trBtn').onclick=track;$('#rBtn').onclick=sendReview;
-document.addEventListener('click',e=>{const b=e.target.closest('[data-pdf]');if(b)openPdfForm(b.dataset.pdf);if(e.target.id==='pdfClose'||e.target.id==='pdfModal')closePdfForm();if(e.target.id==='pdfGo')generatePdf()});
+async function downloadTopicPdf(key){
+  const topic=D.TOPICS[key];if(!topic||!window.LHI_PDF||!window.LHI_PDF.downloadTopic)return;
+  try{await window.LHI_PDF.downloadTopic(key,topic,D.ARTICLES,L);alert(t('topic_pdf_done'))}
+  catch(e){console.error(e);alert(t('pdf_err'))}
+}
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-pdf]');if(b)openPdfForm(b.dataset.pdf);
+  if(e.target.id==='pdfClose'||e.target.id==='pdfModal')closePdfForm();
+  if(e.target.id==='pdfGo')generatePdf();
+  const ab=e.target.closest('[data-asktopic]');
+  if(ab){const topic=D.TOPICS[ab.dataset.asktopic];location.hash='#ask';$('#askQ').value=t('topic_ask_prefill')+(topic?topic.title[L]:'');setTimeout(()=>$('#askQ').focus(),50)}
+  const pb=e.target.closest('[data-pdftopic]');if(pb)downloadTopicPdf(pb.dataset.pdftopic);
+});
 $$('[data-ex]').forEach(b=>b.onclick=()=>{$('#askQ').value=t(b.dataset.ex);$('#askQ').focus()});
 window.addEventListener('hashchange',route);
 try{const last=localStorage.getItem('lhi-last');if(last)$('#trId').value=last}catch(e){}

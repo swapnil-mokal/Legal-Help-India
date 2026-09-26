@@ -8,6 +8,7 @@ h1{font-size:1.55rem;line-height:1.3}h2{font-size:1.25rem;line-height:1.35;margi
 .mut{color:var(--mut);font-size:.92rem}
 .top{position:sticky;top:0;z-index:20;background:var(--navy);color:#fff;display:flex;align-items:center;gap:10px;padding:10px 14px;box-shadow:0 2px 8px rgba(0,0,0,.15)}
 .top img{width:34px;height:34px;border-radius:9px}.top b{flex:1;font-size:1rem;line-height:1.2}.top small{display:block;font-weight:400;opacity:.75;font-size:.72rem}
+.brandmark{background:#fff;padding:2px;object-fit:contain;box-shadow:0 0 0 1px rgba(0,0,0,.06)}
 .lang{display:flex;background:rgba(255,255,255,.12);border-radius:9px;overflow:hidden}
 .lang button{background:none;border:0;color:#fff;font:inherit;font-size:.78rem;padding:6px 9px;cursor:pointer}.lang button.on{background:var(--gold);font-weight:700}
 .wrap{max-width:760px;margin:0 auto;padding:16px 14px}

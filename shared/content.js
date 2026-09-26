@@ -56,7 +56,9 @@ const TOPICS = {
           en:["File an application at your nearest Family Court","First consult a mediation centre","If needed, contact the Women's Helpline 181","Consult a registered lawyer"]
         }
       }
-    ]
+    ],
+    related:["४४", "२१"],
+    faqs:[{"q": {"mr": "घटस्फोटासाठी किती वेळ लागतो?", "hi": "तलाक में कितना समय लगता है?", "en": "How long does a divorce take?"}, "a": {"mr": "परस्पर संमतीने घटस्फोट साधारण ६ महिने ते १ वर्षात होतो. वादग्रस्त (contested) घटस्फोटाला २-३ वर्षे किंवा जास्त वेळ लागू शकतो.", "hi": "आपसी सहमति से तलाक में आमतौर पर 6 महीने से 1 वर्ष लगता है। विवादित तलाक में 2-3 वर्ष या अधिक समय लग सकता है।", "en": "A mutual-consent divorce usually takes 6 months to 1 year. A contested divorce can take 2-3 years or more."}}, {"q": {"mr": "पत्नीला पोटगी नाकारता येते का?", "hi": "क्या पत्नी को गुजारा भत्ता देने से इनकार किया जा सकता है?", "en": "Can maintenance to a wife be denied?"}, "a": {"mr": "पत्नी स्वतः कमावती असेल किंवा पुनर्विवाह केला असेल तर पोटगी कमी वा नाकारली जाऊ शकते, पण अंतिम निर्णय न्यायालय पुराव्यांच्या आधारे घेते.", "hi": "यदि पत्नी स्वयं कमाती है या पुनर्विवाह किया है, तो भरण-पोषण कम या अस्वीकार हो सकता है, परंतु निर्णय अदालत साक्ष्यों पर आधारित होता है।", "en": "Maintenance may be reduced or denied if the wife is earning or has remarried, though courts decide based on evidence."}}]
   },
   property: {
     icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V10"/><path d="M9 21v-6h6v6"/></svg>',
@@ -87,7 +89,9 @@ const TOPICS = {
           en:["Check land records and title before buying","Register documents at the Sub-Registrar's office","Approach civil court in case of disputes","File a complaint with RERA if needed"]
         }
       }
-    ]
+    ],
+    related:["१४", "२१"],
+    faqs:[{"q": {"mr": "वडिलोपार्जित मालमत्तेत मुलींना हक्क आहे का?", "hi": "पैतृक संपत्ति में बेटियों का अधिकार है क्या?", "en": "Do daughters have rights in ancestral property?"}, "a": {"mr": "होय. हिंदू वारसा (सुधारणा) कायदा, २००५ नुसार मुलींना मुलांप्रमाणेच समान सहदायिक हक्क आहे.", "hi": "हाँ। हिंदू उत्तराधिकार (संशोधन) अधिनियम, 2005 के अनुसार बेटियों को बेटों के समान सहदायिक अधिकार प्राप्त है।", "en": "Yes. Under the Hindu Succession (Amendment) Act, 2005, daughters have equal coparcenary rights, same as sons."}}, {"q": {"mr": "बिल्डरने ताबा द्यायला उशीर केला तर काय करावे?", "hi": "बिल्डर कब्ज़ा देने में देरी करे तो क्या करें?", "en": "What if a builder delays possession?"}, "a": {"mr": "RERA कडे ऑनलाइन तक्रार दाखल करता येते, त्यामुळे व्याजासह परतावा किंवा भरपाई मिळू शकते.", "hi": "RERA में ऑनलाइन शिकायत दर्ज की जा सकती है, जिससे ब्याज सहित रिफंड या मुआवज़ा मिल सकता है।", "en": "You can file an online complaint with RERA for a refund with interest or compensation."}}]
   },
   women: {
     icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><line x1="12" y1="14" x2="12" y2="21"/><line x1="9" y1="18" x2="15" y2="18"/></svg>',
@@ -118,7 +122,9 @@ const TOPICS = {
           en:["File an FIR at your nearest police station","Contact Women's Helpline 1091 / 181","If at workplace, complain to the Internal Complaints Committee (ICC)","File a complaint with the National/State Women's Commission"]
         }
       }
-    ]
+    ],
+    related:["१४", "१५", "१६", "२३"],
+    faqs:[{"q": {"mr": "कौटुंबिक हिंसेची तक्रार कुठे करावी?", "hi": "घरेलू हिंसा की शिकायत कहाँ करें?", "en": "Where to complain about domestic violence?"}, "a": {"mr": "जवळच्या पोलीस स्टेशन, संरक्षण अधिकारी किंवा महिला हेल्पलाइन १८१ / १०९१ वर संपर्क करता येतो.", "hi": "नज़दीकी पुलिस स्टेशन, संरक्षण अधिकारी या महिला हेल्पलाइन 181 / 1091 पर संपर्क करें।", "en": "Contact the nearest police station, a Protection Officer, or Women's Helpline 181 / 1091."}}, {"q": {"mr": "कामाच्या ठिकाणी छळ झाल्यास काय करावे?", "hi": "कार्यस्थल पर उत्पीड़न होने पर क्या करें?", "en": "What to do about workplace harassment?"}, "a": {"mr": "अंतर्गत तक्रार समिती (ICC) कडे लेखी तक्रार द्यावी; समिती नसल्यास स्थानिक तक्रार समिती (LCC) कडे जाता येते.", "hi": "आंतरिक शिकायत समिति (ICC) को लिखित शिकायत दें; समिति न हो तो स्थानीय शिकायत समिति (LCC) से संपर्क करें।", "en": "File a written complaint with the Internal Complaints Committee (ICC), or the Local Complaints Committee if none exists."}}]
   },
   police: {
     icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 20 5.5V11c0 5.2-3.4 9-8 11-4.6-2-8-5.8-8-11V5.5Z"/><path d="M12 8.5l1.1 2.2 2.4.35-1.75 1.7.4 2.4L12 14l-2.15 1.15.4-2.4-1.75-1.7 2.4-.35Z"/></svg>',
@@ -149,7 +155,9 @@ const TOPICS = {
           en:["If police refuse to file an FIR, complain to a senior officer/SP","Use the online FIR facility","If needed, file a private complaint in court"]
         }
       }
-    ]
+    ],
+    related:["२०", "२१", "२२"],
+    faqs:[{"q": {"mr": "पोलिसांनी FIR नोंदवण्यास नकार दिला तर?", "hi": "पुलिस FIR दर्ज करने से मना करे तो?", "en": "What if police refuse to register an FIR?"}, "a": {"mr": "वरिष्ठ पोलीस अधिकाऱ्याकडे (SP/DCP) लेखी तक्रार करा, किंवा CrPC कलम १५६(३) अंतर्गत दंडाधिकाऱ्यांकडे अर्ज करा.", "hi": "वरिष्ठ पुलिस अधिकारी (SP/DCP) को लिखित शिकायत दें, या CrPC धारा 156(3) के तहत मजिस्ट्रेट से आवेदन करें।", "en": "File a written complaint with a senior officer (SP/DCP), or apply to a Magistrate under Section 156(3) CrPC."}}, {"q": {"mr": "अटक झाल्यास कोणते हक्क आहेत?", "hi": "गिरफ्तारी होने पर क्या अधिकार हैं?", "en": "What rights exist upon arrest?"}, "a": {"mr": "अटकेचे कारण जाणून घेण्याचा, २४ तासांत दंडाधिकाऱ्यांसमोर हजर करण्याचा व वकिलाचा सल्ला घेण्याचा हक्क आहे (कलम २२).", "hi": "गिरफ्तारी का कारण जानने, 24 घंटे में मजिस्ट्रेट के सामने पेश किए जाने और वकील से सलाह लेने का अधिकार है (अनुच्छेद 22)।", "en": "You have the right to know the grounds of arrest, be produced before a magistrate within 24 hours, and consult a lawyer (Article 22)."}}]
   },
   education: {
     icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9 12 4l10 5-10 5Z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg>',
@@ -180,7 +188,9 @@ const TOPICS = {
           en:["If a school refuses admission, complain to the education officer","If wages are pending, complain to the Labour Commissioner's office","You can also approach the labour court"]
         }
       }
-    ]
+    ],
+    related:["२१अ", "२९", "३०"],
+    faqs:[{"q": {"mr": "शाळेत प्रवेश नाकारल्यास काय करावे?", "hi": "स्कूल में प्रवेश से इनकार होने पर क्या करें?", "en": "What if admission to school is denied?"}, "a": {"mr": "RTE कायद्यांतर्गत ६-१४ वयोगटातील मुलांना मोफत व सक्तीच्या शिक्षणाचा हक्क आहे; तक्रार शिक्षण विभाग किंवा बाल हक्क आयोगाकडे करता येते.", "hi": "RTE अधिनियम के तहत 6-14 वर्ष के बच्चों को मुफ्त व अनिवार्य शिक्षा का अधिकार है; शिकायत शिक्षा विभाग या बाल अधिकार आयोग से करें।", "en": "Under the RTE Act, children aged 6-14 have a right to free education; complaints can go to the education department or child rights commission."}}, {"q": {"mr": "नोकरीत बेकायदेशीर बडतर्फी झाल्यास काय करावे?", "hi": "नौकरी से अवैध बर्खास्तगी होने पर क्या करें?", "en": "What about unlawful termination from a job?"}, "a": {"mr": "कामगार न्यायालयात किंवा औद्योगिक विवाद कायद्याखाली तक्रार दाखल करता येते; आधी कामगार आयुक्त कार्यालयाकडे तक्रार करणे उपयुक्त ठरते.", "hi": "श्रम न्यायालय में या औद्योगिक विवाद अधिनियम के तहत शिकायत दर्ज करें; पहले श्रम आयुक्त कार्यालय से संपर्क करना उपयोगी है।", "en": "File with a Labour Court or under the Industrial Disputes Act; approaching the Labour Commissioner first often helps."}}]
   },
   senior: {
     icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 8.6c0 4.4-8.8 10.4-8.8 10.4S3.2 13 3.2 8.6a4.6 4.6 0 0 1 8.8-1.9 4.6 4.6 0 0 1 8.8 1.9Z"/><line x1="12" y1="7.5" x2="12" y2="12.5"/><line x1="9.5" y1="10" x2="14.5" y2="10"/></svg>',
@@ -211,6 +221,66 @@ const TOPICS = {
           en:["Apply to the Sub-Divisional Officer / Maintenance Tribunal","Contact the Senior Citizens' Helpline 14567","If needed, seek help from local police"]
         }
       }
+    ],
+    related:["२१"],
+    faqs:[{"q": {"mr": "मुलांनी सांभाळ न केल्यास काय करावे?", "hi": "बच्चे देखभाल न करें तो क्या करें?", "en": "What if children fail to care for a senior parent?"}, "a": {"mr": "पालक व ज्येष्ठ नागरिक निर्वाह कायदा, २००७ अंतर्गत Maintenance Tribunal कडे अर्ज करून मुलांकडून निर्वाह खर्च मिळवता येतो.", "hi": "माता-पिता एवं वरिष्ठ नागरिक भरण-पोषण अधिनियम, 2007 के तहत Maintenance Tribunal में आवेदन कर सकते हैं।", "en": "Under the Maintenance of Parents and Senior Citizens Act, 2007, a Tribunal can order children to pay maintenance."}}, {"q": {"mr": "मालमत्ता मुलांच्या नावावर केल्यास परत मागता येते का?", "hi": "संपत्ति बच्चों के नाम करने के बाद वापस माँगी जा सकती है क्या?", "en": "Can property transferred to children be reclaimed?"}, "a": {"mr": "हो. देणगीच्या अटीनुसार सांभाळ न झाल्यास, वरील कायद्याअंतर्गत असे हस्तांतरण रद्द ठरवता येते.", "hi": "हाँ। यदि उपहार की शर्त अनुसार देखभाल न हो, तो उक्त कानून के तहत हस्तांतरण रद्द किया जा सकता है।", "en": "Yes. If the condition of care is not fulfilled, such a transfer can be declared void under the Act."}}]
+  },
+  consumer: {
+    icon:"🛒", color:"#0b3d91",
+    title:{mr:"ग्राहक हक्क",hi:"उपभोक्ता अधिकार",en:"Consumer Rights"},
+    sections:[
+      {
+        heading:{mr:"तुमचे हक्क",hi:"आपके अधिकार",en:"Your Rights"},
+        items:{
+          mr:["सदोष वस्तू/सेवेबद्दल तक्रार करण्याचा हक्क","माहिती मिळवण्याचा व निवडीचा हक्क","ग्राहक न्यायालयात दाद मागण्याचा हक्क (जिल्हा/राज्य/राष्ट्रीय आयोग)","ई-कॉमर्स खरेदीवरही हे हक्क लागू होतात"],
+          hi:["दोषपूर्ण वस्तु/सेवा की शिकायत करने का अधिकार","जानकारी पाने व चयन का अधिकार","उपभोक्ता न्यायालय में शिकायत करने का अधिकार (जिला/राज्य/राष्ट्रीय आयोग)","ई-कॉमर्स खरीद पर भी ये अधिकार लागू होते हैं"],
+          en:["Right to complain about defective goods/services","Right to information and choice","Right to approach Consumer Courts (District/State/National Commission)","These rights also apply to e-commerce purchases"]
+        }
+      },
+      {
+        heading:{mr:"तक्रार कशी करावी",hi:"शिकायत कैसे करें",en:"How To Complain"},
+        items:{
+          mr:["राष्ट्रीय ग्राहक हेल्पलाइन १९१५ वर कॉल करा","e-daakhil पोर्टलवर ऑनलाइन तक्रार नोंदवा","पावती/बिल जपून ठेवा, ते मुख्य पुरावा असते","२ वर्षांच्या आत तक्रार दाखल करावी"],
+          hi:["राष्ट्रीय उपभोक्ता हेल्पलाइन 1915 पर कॉल करें","e-daakhil पोर्टल पर ऑनलाइन शिकायत दर्ज करें","रसीद/बिल सुरक्षित रखें, यह मुख्य सबूत होता है","शिकायत 2 वर्ष के भीतर दर्ज करें"],
+          en:["Call the National Consumer Helpline 1915","File an online complaint on the e-daakhil portal","Keep the receipt/bill safe — it is key evidence","A complaint must be filed within 2 years of the issue"]
+        }
+      }
+    ],
+    related:["१४","२१"],
+    faqs:[
+      {"q":{"mr":"ऑनलाइन मागवलेली वस्तू सदोष निघाली तर काय करावे?","hi":"ऑनलाइन मंगाई वस्तु दोषपूर्ण निकले तो क्या करें?","en":"What if an item ordered online turns out defective?"},
+       "a":{"mr":"आधी विक्रेता/प्लॅटफॉर्मकडे परतावा किंवा बदलीसाठी तक्रार करा. उत्तर न मिळाल्यास e-daakhil पोर्टलवर ग्राहक आयोगाकडे तक्रार करता येते.","hi":"पहले विक्रेता/प्लेटफॉर्म से रिफंड या बदलाव के लिए शिकायत करें। जवाब न मिलने पर e-daakhil पोर्टल पर उपभोक्ता आयोग में शिकायत करें।","en":"First raise a complaint with the seller/platform for a refund or replacement. If unresolved, file with the Consumer Commission via the e-daakhil portal."}},
+      {"q":{"mr":"विमा कंपनीने दावा नाकारला तर काय करावे?","hi":"बीमा कंपनी दावा अस्वीकार करे तो क्या करें?","en":"What if an insurance company rejects a claim?"},
+       "a":{"mr":"आधी विमा लोकपाल (Insurance Ombudsman) कडे तक्रार करता येते; ते मोफत व जलद असते. त्यानंतरही समाधान न झाल्यास ग्राहक न्यायालयात जाता येते.","hi":"पहले बीमा लोकपाल (Insurance Ombudsman) से शिकायत करें; यह मुफ्त व तेज़ होता है। समाधान न होने पर उपभोक्ता न्यायालय जाएँ।","en":"First approach the Insurance Ombudsman — it's free and quick. If unresolved, you can approach the Consumer Court."}}
+    ]
+  },
+  cyber: {
+    icon:"💻", color:"#0b3d91",
+    title:{mr:"सायबर सुरक्षा व ऑनलाईन फसवणूक",hi:"साइबर सुरक्षा व ऑनलाइन धोखाधड़ी",en:"Cybercrime & Online Fraud"},
+    sections:[
+      {
+        heading:{mr:"सामान्य सायबर गुन्हे",hi:"सामान्य साइबर अपराध",en:"Common Cybercrimes"},
+        items:{
+          mr:["OTP/बँक फसवणूक (फिशिंग)","बनावट सोशल मीडिया प्रोफाइल व ब्लॅकमेल","ऑनलाइन खरेदी/गुंतवणूक फसवणूक","सायबर बुलिंग व वैयक्तिक माहितीचा गैरवापर"],
+          hi:["OTP/बैंक धोखाधड़ी (फिशिंग)","फर्जी सोशल मीडिया प्रोफाइल व ब्लैकमेल","ऑनलाइन खरीद/निवेश धोखाधड़ी","साइबर बुलिंग व निजी जानकारी का दुरुपयोग"],
+          en:["OTP/banking fraud (phishing)","Fake social media profiles & blackmail","Online shopping/investment scams","Cyberbullying and misuse of personal data"]
+        }
+      },
+      {
+        heading:{mr:"तक्रार कशी करावी",hi:"शिकायत कैसे करें",en:"How To Complain"},
+        items:{
+          mr:["राष्ट्रीय सायबर क्राईम हेल्पलाइन १९३० वर लगेच कॉल करा (आर्थिक फसवणुकीत विशेष उपयोगी)","cybercrime.gov.in वर ऑनलाइन तक्रार नोंदवा","स्क्रीनशॉट, व्यवहाराचे तपशील व संदेश जपून ठेवा","जवळच्या पोलीस स्टेशन/सायबर सेलमध्ये लेखी तक्रार द्या"],
+          hi:["राष्ट्रीय साइबर क्राइम हेल्पलाइन 1930 पर तुरंत कॉल करें (आर्थिक धोखाधड़ी में विशेष उपयोगी)","cybercrime.gov.in पर ऑनलाइन शिकायत दर्ज करें","स्क्रीनशॉट, लेन-देन विवरण व संदेश सुरक्षित रखें","नज़दीकी पुलिस स्टेशन/साइबर सेल में लिखित शिकायत दें"],
+          en:["Call the National Cybercrime Helpline 1930 immediately (especially for financial fraud)","File an online complaint at cybercrime.gov.in","Save screenshots, transaction details, and messages as evidence","File a written complaint at the nearest police station/cyber cell"]
+        }
+      }
+    ],
+    related:["१९","२१"],
+    faqs:[
+      {"q":{"mr":"बँक खात्यातून पैसे फसवणुकीने गेले तर किती वेळात तक्रार करावी?","hi":"बैंक खाते से धोखाधड़ी से पैसे गए तो कितने समय में शिकायत करें?","en":"How soon should I report if money was fraudulently debited?"},
+       "a":{"mr":"शक्य तितक्या लवकर, आदर्शतः ३ दिवसांच्या आत बँकेला व १९३० हेल्पलाइनला कळवा — यामुळे पैसे परत मिळण्याची शक्यता जास्त असते (RBI च्या मर्यादित दायित्व नियमानुसार).","hi":"जितनी जल्दी हो सके, आदर्शतः 3 दिनों के भीतर बैंक व 1930 हेल्पलाइन को सूचित करें — इससे पैसे वापस मिलने की संभावना अधिक होती है (RBI के सीमित देयता नियम अनुसार)।","en":"As soon as possible, ideally within 3 days — notify your bank and the 1930 helpline. Prompt reporting improves chances of recovery under RBI's limited-liability rules."}},
+      {"q":{"mr":"बनावट प्रोफाइलवरून ब्लॅकमेल होत असेल तर काय करावे?","hi":"फर्जी प्रोफाइल से ब्लैकमेल हो रहा हो तो क्या करें?","en":"What if someone is blackmailing me via a fake profile?"},
+       "a":{"mr":"संबंधित व्यक्तीशी संपर्क/पैसे देणे टाळा. सर्व पुरावे (स्क्रीनशॉट, चॅट) जपून ठेवा आणि लगेच सायबर सेल किंवा १९३० हेल्पलाइनला कळवा.","hi":"संबंधित व्यक्ति से संपर्क/भुगतान करने से बचें। सभी सबूत (स्क्रीनशॉट, चैट) सुरक्षित रखें और तुरंत साइबर सेल या 1930 हेल्पलाइन को सूचित करें।","en":"Avoid contacting or paying the blackmailer. Preserve all evidence (screenshots, chats) and report immediately to the cyber cell or the 1930 helpline."}}
     ]
   }
 };
