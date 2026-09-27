@@ -56,7 +56,9 @@ about_title:["आमच्याबद्दल","हमारे बारे �
 about_bio:["श्री. स्वप्निल मोकळ (M.Sc. CS) — माजी अध्यक्ष, संस्कार फाउंडेशन. Legal Help India टीमचे कायदेशीर सल्लागार.","श्री स्वप्निल मोकल (M.Sc. CS) — पूर्व अध्यक्ष, संस्कार फाउंडेशन। Legal Help India टीम के कानूनी सलाहकार।","Mr. Swapnil Mokal (M.Sc. CS) — Ex-President, Sanskar Foundation. Legal Advisor, Legal Help India Team."],
 about_bio2:["डॉ. प्रशांत अभंग — वकील, मुंबई उच्च न्यायालय. Legal Help India टीमचे कायदेशीर सल्लागार.","डॉ. प्रशांत अभंग — अधिवक्ता, मुंबई उच्च न्यायालय। Legal Help India टीम के कानूनी सलाहकार।","Dr. Prashant Abhang — Advocate, Bombay High Court. Legal Advisor, Legal Help India Team."],
 about_owner:["ऍप मालक व डेव्हलपर: स्वप्निल मोकळ","ऐप मालिक व डेवलपर: स्वप्निल मोकल","App Owner & Developer: Swapnil Mokal"],
-copyright:["© 2026 Legal Help India. सर्व हक्क राखीव.","© 2026 Legal Help India. सर्वाधिकार सुरक्षित।","© 2026 Legal Help India. All rights reserved."]};
+copyright:["© 2026 Legal Help India. सर्व हक्क राखीव.","© 2026 Legal Help India. सर्वाधिकार सुरक्षित।","© 2026 Legal Help India. All rights reserved."],
+exit_app:["ऍप बंद करा","ऐप बंद करें","Exit App"],
+exit_hint:["ब्राउझर सुरक्षेमुळे ऍप्स स्वतःहून पूर्ण बंद करता येत नाहीत. कृपया फोनच्या Back बटणाने किंवा Recent Apps मधून हे ऍप बंद करा.","ब्राउज़र सुरक्षा के कारण ऐप्स खुद को पूरी तरह बंद नहीं कर सकते। कृपया फोन के Back बटन या Recent Apps से इसे बंद करें।","For browser-security reasons, an app can't fully close itself. Please close it using your phone's Back button or Recent Apps."]};
 const t=k=>T[k]?T[k][IDX[L]]:k,esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let S={},cat='all',lastTrack=null,revLoaded=false,sub='topics';
 
@@ -190,7 +192,14 @@ document.addEventListener('click',e=>{
   const pb=e.target.closest('[data-pdftopic]');if(pb)downloadTopicPdf(pb.dataset.pdftopic);
   if(e.target.id==='shareAnsBtn'&&lastAnswer)shareContent(lastAnswer);
   if(e.target.id==='shareAppBtn')shareContent(t('share_app_text'),location.origin+location.pathname.replace(/[^\/]*$/,''));
+  if(e.target.id==='exitAppBtn')exitApp();
 });
+function exitApp(){
+  // सुरक्षेच्या कारणामुळे कुठलंही वेब ऍप स्वतःहून पूर्ण बंद (close) करू शकत नाही —
+  // window.close() फक्त स्क्रिप्टने उघडलेल्या विंडोसाठी चालतं, इथे ते बहुतांश वेळा काम करणार नाही.
+  try{window.close()}catch(e){}
+  setTimeout(()=>{ if(!document.hidden) alert(t('exit_hint')) },250);
+}
 $$('[data-ex]').forEach(b=>b.onclick=()=>{$('#askQ').value=t(b.dataset.ex);$('#askQ').focus()});
 window.addEventListener('hashchange',route);
 try{const last=localStorage.getItem('lhi-last');if(last)$('#trId').value=last}catch(e){}
