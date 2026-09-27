@@ -1,10 +1,10 @@
-/* Legal Helpdesk India — shared public configuration. Never put secrets here. */
+/* Legal Help India — shared public configuration. Never put secrets here. */
 window.LHI_CONFIG = {
   apiUrl: "https://script.google.com/macros/s/AKfycbzoOa1-tZCWfhCNB_x8zy05xWgtf6YvuwtvRsQWm9apH6O7reTF3BZ5UCpJDYt-0GU2ow/exec",
   whatsappNumber: "919870020674",
   whatsappDisplay: "+91 98700 20674",
   email: "sbm.group.legal.services@gmail.com",
-  brand: "Legal Helpdesk India",
+  brand: "Legal Help India",
   tagline: "भारतीय संविधान, नागरिक हक्क आणि कायदेशीर मार्गदर्शन",
   // Admin पॅनलमध्ये "Google Sheet उघडा" बटण दाखवण्यासाठी तुमच्या Sheet चा शेअर लिंक इथे पेस्ट करा
   // (Sheet उघडा → Share → "Anyone with the link" → Viewer/Editor → लिंक कॉपी करा)

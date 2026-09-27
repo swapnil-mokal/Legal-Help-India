@@ -1,4 +1,4 @@
-# Legal Helpdesk India — एकाच Repository मध्ये पूर्ण Deploy सूचना
+# Legal Help India — एकाच Repository मध्ये पूर्ण Deploy सूचना
 
 ## 1) GitHub Repository
 

@@ -1,4 +1,4 @@
-/* Legal Helpdesk India — कायदेशीर माहिती (मराठी / हिंदी / English). */
+/* Legal Help India — कायदेशीर माहिती (मराठी / हिंदी / English). */
 window.LHI_DATA=(function(){
 const ARTICLES = [
   {num:"१", cat:"structure", title:{mr:"कलम १ — भारताचे नाव व राज्यक्षेत्र",hi:"अनुच्छेद १ — भारत का नाम और राज्यक्षेत्र",en:"Article 1 — Name and Territory of India"}, sum:{mr:"भारत हा 'राज्यांचा संघ' आहे असे हे कलम सांगते. यामुळे भारताचे संघराज्यीय स्वरूप स्पष्ट होते.",hi:"यह अनुच्छेद बताता है कि भारत 'राज्यों का संघ' है। इससे भारत के संघीय स्वरूप की पुष्टि होती है।",en:"Declares India as a 'Union of States', establishing the federal character of the country."}},

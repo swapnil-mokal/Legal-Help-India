@@ -1,11 +1,11 @@
 {
-  "name": "Legal Helpdesk India — Admin",
+  "name": "Legal Help India — Admin",
   "short_name": "LHI Admin",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#f8fafc",
   "theme_color": "#0b3d91",
-  "description": "Legal Helpdesk India administration dashboard",
+  "description": "Legal Help India administration dashboard",
   "icons": [
     {
       "src": "icons/icon-192.png",

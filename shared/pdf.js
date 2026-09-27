@@ -1,4 +1,4 @@
-/* Legal Helpdesk India — कागदपत्र PDF जनरेटर (Marathi/Hindi/English, client-side, jsPDF+html2canvas) */
+/* Legal Help India — कागदपत्र PDF जनरेटर (Marathi/Hindi/English, client-side, jsPDF+html2canvas) */
 window.LHI_PDF=(function(){
 function f(id,type,mr,hi,en,opt){return{id:id,type:type||'text',opt:!!opt,label:{mr:mr,hi:hi,en:en}}}
 const FIELDS={
@@ -101,7 +101,7 @@ function contactFooter(L){
   const cfg=(window.LHI_CONFIG)||{};
   const phone=(cfg.whatsappNumber||'').replace(/^91/,'');
   const line=tr('सल्ल्यासाठी संपर्क करा:','सलाह के लिए संपर्क करें:','For advice, contact us:')[L];
-  return '<div style="margin-top:26px;font-size:11px;color:#666">'+esc(DISC[L])+'<br><b>'+esc(line)+'</b> 📞 '+esc(phone||'—')+' &nbsp; ✉️ '+esc(cfg.email||'—')+'<br>Legal Helpdesk India — '+new Date().toLocaleDateString('en-IN')+'</div>';
+  return '<div style="margin-top:26px;font-size:11px;color:#666">'+esc(DISC[L])+'<br><b>'+esc(line)+'</b> 📞 '+esc(phone||'—')+' &nbsp; ✉️ '+esc(cfg.email||'—')+'<br>Legal Help India — '+new Date().toLocaleDateString('en-IN')+'</div>';
 }
 function buildTopicHTML(key,topic,ARTICLES,L){
   const rel=(topic.related||[]).map(n=>ARTICLES.find(a=>a.num===n)).filter(Boolean);
@@ -111,7 +111,7 @@ function buildTopicHTML(key,topic,ARTICLES,L){
     ? '<span style="display:inline-block;width:20px;height:20px;vertical-align:-4px;color:#0b3d91">'+iconRaw+'</span> '
     : (iconRaw?esc(iconRaw)+' ':'');
   body+='<div style="text-align:center;font-size:19px;font-weight:700;margin-bottom:4px">'+iconHtml+esc(topic.title[L])+'</div>';
-  body+='<div style="text-align:center;font-size:11px;color:#888;margin-bottom:18px">Legal Helpdesk India</div>';
+  body+='<div style="text-align:center;font-size:11px;color:#888;margin-bottom:18px">Legal Help India</div>';
   (topic.sections||[]).forEach(s=>{
     body+='<div style="font-weight:700;font-size:14px;margin:14px 0 4px;color:#0b3d91">'+esc(s.heading[L])+'</div><ul style="margin:0 0 6px 20px;padding:0">'+s.items[L].map(i=>'<li style="margin-bottom:3px">'+esc(i)+'</li>').join('')+'</ul>';
   });

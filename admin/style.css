@@ -5,3 +5,5 @@
 .toast{position:fixed;left:50%;bottom:92px;transform:translateX(-50%);background:#1b2433;color:#fff;padding:10px 18px;border-radius:24px;z-index:50;font-size:.9rem;box-shadow:var(--sh);max-width:90%}
 .mrow{display:flex;justify-content:space-between;gap:8px;padding:9px 0;border-bottom:1px solid var(--line)}.mrow:last-child{border:0}
 details.acc>.body{margin:0 16px 16px}.body .row{margin:10px 0}.stars{color:var(--gold);letter-spacing:2px}
+.qa .qa-row{display:flex;align-items:center;gap:12px;width:100%;background:#eef2f8;border:0;border-radius:12px;padding:13px 16px;margin-top:10px;font:inherit;font-weight:600;font-size:.94rem;color:var(--navy);text-decoration:none;cursor:pointer;text-align:left}
+.qa .qa-row .ic-i{width:20px;height:20px;flex:none}

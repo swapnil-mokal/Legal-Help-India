@@ -1,4 +1,4 @@
-# Legal Helpdesk India — Single Repository Production PWA
+# Legal Help India — Single Repository Production PWA
 
 ही आवृत्ती **एकाच GitHub repository** मध्ये User PWA आणि Admin PWA देते.
 

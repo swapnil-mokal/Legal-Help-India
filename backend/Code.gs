@@ -1,5 +1,5 @@
 /**
- * Legal Helpdesk India — पूर्ण बॅकएंड (Google Apps Script)
+ * Legal Help India — पूर्ण बॅकएंड (Google Apps Script)
  * ---------------------------------------------------------
  * Netlify functions आणि JSONBin यांची जागा हीच फाईल घेते. GitHub Pages फक्त स्टॅटिक
  * फाईल्स चालवतं, म्हणून AI कॉल, फॉर्म सेव्हिंग, रिव्ह्यू आणि Admin हे सर्व इथे चालतं.
@@ -129,7 +129,7 @@ function submitLegal_(d) {
   const inbox = "sbm.group.legal.services@gmail.com";
   try {
     MailApp.sendEmail({to: inbox, subject: "नवीन कायदेशीर मदत विनंती - " + name + " (#" + r.id + ")", body:
-      "Legal Helpdesk India\n\nRequest ID: " + r.id + "\nनाव: " + name + "\nमोबाईल: " + mobile + "\nईमेल: " + r.email + "\nशहर: " + r.city + "\nजिल्हा: " + r.district + "\nप्रकार: " + r.category + "\nसमस्या: " + description + "\nPreferred Time: " + r.preferredTime});
+      "Legal Help India\n\nRequest ID: " + r.id + "\nनाव: " + name + "\nमोबाईल: " + mobile + "\nईमेल: " + r.email + "\nशहर: " + r.city + "\nजिल्हा: " + r.district + "\nप्रकार: " + r.category + "\nसमस्या: " + description + "\nPreferred Time: " + r.preferredTime});
   } catch (mailErr) {}
   return { ok: true, requestId: r.id, status: r.status, whatsappNumber: "919870020674" };
 }
@@ -149,7 +149,7 @@ function logPdfDownload_(d) {
     const opts = {
       to: inbox,
       subject: "PDF फॉर्म डाउनलोड - " + docTitle + " - " + name,
-      body: "Legal Helpdesk India\n\nकागदपत्र: " + docTitle + "\nनाव: " + name + "\nमोबाईल: " + mobile + "\nवेळ: " + new Date().toLocaleString("en-IN")
+      body: "Legal Help India\n\nकागदपत्र: " + docTitle + "\nनाव: " + name + "\nमोबाईल: " + mobile + "\nवेळ: " + new Date().toLocaleString("en-IN")
     };
     if (d.pdfBase64) {
       const raw = String(d.pdfBase64).split(",").pop();

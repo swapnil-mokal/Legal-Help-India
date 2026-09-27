@@ -2,7 +2,7 @@
 
 You are a senior full-stack PWA architect, UI/UX designer, security engineer and mobile app engineer.
 
-You are given the **Legal Helpdesk India** repository. Build/refine it without destroying the original Indian Constitution/legal content already present in `index.html`.
+You are given the **Legal Help India** repository. Build/refine it without destroying the original Indian Constitution/legal content already present in `index.html`.
 
 ## Non-negotiable architecture
 
@@ -17,12 +17,12 @@ You are given the **Legal Helpdesk India** repository. Build/refine it without d
 
 ## Brand direction
 
-Brand: Legal Helpdesk India
+Brand: Legal Help India
 Tagline: भारतीय संविधान, नागरिक हक्क आणि कायदेशीर मार्गदर्शन
 Theme: deep navy + antique gold + warm paper + restrained maroon/green accents.
 Use the supplied `logo.svg` as the master mark.
 Tone: trustworthy, calm, civic, professional, Indian legal-service aesthetic. Avoid a generic template look.
-Welcome message should communicate: “न्यायाची माहिती, हक्कांची जाणीव आणि योग्य दिशादर्शन — Legal Helpdesk India सोबत.”
+Welcome message should communicate: “न्यायाची माहिती, हक्कांची जाणीव आणि योग्य दिशादर्शन — Legal Help India सोबत.”
 
 ## User features
 

@@ -1,4 +1,4 @@
-/* Legal Helpdesk India — User app */
+/* Legal Help India — User app */
 (function(){
 const C=window.LHI_CONFIG,D=window.LHI_DATA,$=s=>document.querySelector(s),$$=s=>[].slice.call(document.querySelectorAll(s));
 const IDX={mr:0,hi:1,en:2};let L='mr';try{L=localStorage.getItem('lhi-lang')||'mr'}catch(e){}
@@ -51,10 +51,12 @@ topic_ask_prefill:["मला या विषयाबद्दल अधिक
 topic_pdf_done:["या विषयाची PDF यशस्वीरित्या डाउनलोड झाली.","इस विषय की PDF सफलतापूर्वक डाउनलोड हो गई।","This topic's PDF has been downloaded successfully."],
 share_btn:["शेअर करा","शेयर करें","Share"],share_copied:["मजकूर कॉपी झाला आहे, कुठेही पेस्ट करा.","पाठ कॉपी हो गया है, कहीं भी पेस्ट करें।","Text copied — paste it anywhere."],
 share_app_btn:["हे ऍप इतरांना पाठवा","यह ऐप दूसरों को भेजें","Share this app"],
-share_app_text:["Legal Helpdesk India — मोफत कायदेशीर माहिती व मदत या ऍपवर मिळवा:","Legal Helpdesk India — मुफ्त कानूनी जानकारी व मदद इस ऐप पर पाएँ:","Legal Helpdesk India — get free legal information and help on this app:"],
+share_app_text:["Legal Help India — मोफत कायदेशीर माहिती व मदत या ऍपवर मिळवा:","Legal Help India — मुफ्त कानूनी जानकारी व मदद इस ऐप पर पाएँ:","Legal Help India — get free legal information and help on this app:"],
 about_title:["आमच्याबद्दल","हमारे बारे में","About Us"],
-about_bio:["श्री. स्वप्नील मोकळ (M.Sc. CS) — माजी अध्यक्ष, संस्कार फाउंडेशन. Legal Help India टीमचे कायदेशीर सल्लागार.","श्री स्वप्निल मोकल (M.Sc. CS) — पूर्व अध्यक्ष, संस्कार फाउंडेशन। Legal Help India टीम के कानूनी सलाहकार।","Mr. Swapnil Mokal (M.Sc. CS) — Ex-President, Sanskar Foundation. Legal Advisor, Legal Help India Team."],
-about_bio2:["डॉ. प्रशांत आभंग — वकील, मुंबई उच्च न्यायालय. Legal Help India टीमचे कायदेशीर सल्लागार.","डॉ. प्रशांत आभंग — अधिवक्ता, मुंबई उच्च न्यायालय। Legal Help India टीम के कानूनी सलाहकार।","Dr. Prashant Abhang — Advocate, Bombay High Court. Legal Advisor, Legal Help India Team."]};
+about_bio:["श्री. स्वप्निल मोकळ (M.Sc. CS) — माजी अध्यक्ष, संस्कार फाउंडेशन. Legal Help India टीमचे कायदेशीर सल्लागार.","श्री स्वप्निल मोकल (M.Sc. CS) — पूर्व अध्यक्ष, संस्कार फाउंडेशन। Legal Help India टीम के कानूनी सलाहकार।","Mr. Swapnil Mokal (M.Sc. CS) — Ex-President, Sanskar Foundation. Legal Advisor, Legal Help India Team."],
+about_bio2:["डॉ. प्रशांत अभंग — वकील, मुंबई उच्च न्यायालय. Legal Help India टीमचे कायदेशीर सल्लागार.","डॉ. प्रशांत अभंग — अधिवक्ता, मुंबई उच्च न्यायालय। Legal Help India टीम के कानूनी सलाहकार।","Dr. Prashant Abhang — Advocate, Bombay High Court. Legal Advisor, Legal Help India Team."],
+about_owner:["ऍप मालक व डेव्हलपर: स्वप्निल मोकळ","ऐप मालिक व डेवलपर: स्वप्निल मोकल","App Owner & Developer: Swapnil Mokal"],
+copyright:["© 2026 Legal Help India. सर्व हक्क राखीव.","© 2026 Legal Help India. सर्वाधिकार सुरक्षित।","© 2026 Legal Help India. All rights reserved."]};
 const t=k=>T[k]?T[k][IDX[L]]:k,esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let S={},cat='all',lastTrack=null,revLoaded=false,sub='topics';
 
@@ -105,7 +107,7 @@ async function ask(){
   }catch(e){fail(out,e)}b.disabled=false;
 }
 async function shareContent(text,url){
-  const shareData={title:'Legal Helpdesk India',text:text};if(url)shareData.url=url;
+  const shareData={title:'Legal Help India',text:text};if(url)shareData.url=url;
   try{if(navigator.share){await navigator.share(shareData);return}}catch(e){if(e&&e.name==='AbortError')return}
   const waText=text+(url?'\n'+url:'');
   try{window.open(waLink(waText),'_blank')}
