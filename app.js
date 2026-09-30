@@ -33,6 +33,9 @@ hero_t:["तुमच्या हक्कांची माहिती, स�
 hero_s:["कायदेशीर प्रश्न विचारा, योग्य माहिती मिळवा आणि आवश्यक असल्यास कायदेशीर मदत मागा.","कानूनी सवाल पूछें, सही जानकारी पाएँ और ज़रूरत हो तो कानूनी मदद माँगें।","Ask legal questions, get the right information and request legal help if needed."],
 cta_ask:["AI ला विचारा","AI से पूछें","Ask AI"],cta_help:["कायदेशीर मदत मागा","कानूनी मदद माँगें","Request Legal Help"],
 quick_t:["त्वरित कृती","त्वरित कार्य","Quick Actions"],
+help_with_t:["मदत हवी कशासाठी?","किस बारे में मदद चाहिए?","What do you need help with?"],
+hw_police:["पोलीस / FIR","पुलिस / FIR","Police / FIR"],hw_property:["मालमत्ता","संपत्ति","Property"],hw_family:["कुटुंब","परिवार","Family"],hw_labour:["नोकरी / कामगार","नौकरी / श्रमिक","Job / Labour"],
+hw_money:["पैसे / कर्ज","पैसे / ऋण","Money / Loan"],hw_accident:["अपघात","दुर्घटना","Accident"],hw_women:["महिला व बालक","महिला व बालक","Women & Child"],hw_cyber:["सायबर क्राईम","साइबर अपराध","Cyber Crime"],
 qa_search:["कायदा शोधा","कानून खोजें","Search Law"],qa_const:["संविधान","संविधान","Constitution"],qa_rights:["माझे हक्क","मेरे अधिकार","My Rights"],qa_docs:["नमुना अर्ज","नमूना आवेदन","Sample Forms"],qa_helpreq:["मदत मागा","मदद माँगें","Get Help"],qa_status:["माझी विनंती","मेरा अनुरोध","My Request"],
 disc:["ही माहिती सर्वसाधारण मार्गदर्शनासाठी आहे. हा वैयक्तिक कायदेशीर सल्ला नाही; गंभीर प्रकरणांसाठी वकिलाचा सल्ला घ्यावा.","यह जानकारी सामान्य मार्गदर्शन हेतु है। यह व्यक्तिगत कानूनी सलाह नहीं है; गंभीर मामलों में वकील से सलाह लें।","This information is general guidance only, not personal legal advice; consult a lawyer for serious matters."],
 disc_short:["ही माहिती सर्वसाधारण मार्गदर्शनासाठी आहे. हा वैयक्तिक कायदेशीर सल्ला नाही.","यह जानकारी सामान्य मार्गदर्शन हेतु है। यह व्यक्तिगत कानूनी सलाह नहीं है।","This information is for general guidance only. It is not personal legal advice."],
@@ -52,6 +55,7 @@ art_ask:["या कलमाबद्दल AI ला विचारा","इ�
 /* हक्क */
 rd_citizens:["मूलभूत अधिकार आणि नागरिकांचे हक्क","मौलिक अधिकार और नागरिकों के अधिकार","Fundamental rights and citizens' rights"],rd_women:["सुरक्षा, समानता आणि संरक्षण","सुरक्षा, समानता और संरक्षण","Safety, equality and protection"],rd_children:["शिक्षण, आरोग्य आणि सुरक्षितता","शिक्षा, स्वास्थ्य और सुरक्षा","Education, health and safety"],rd_consumer:["फसवणूक, सेवा आणि तक्रार निवारण","धोखाधड़ी, सेवा और शिकायत निवारण","Fraud, service and grievance redressal"],rd_labour:["नोकरी, वेतन आणि कामाचे हक्क","नौकरी, वेतन और कार्य अधिकार","Job, wages and work rights"],rd_police:["अटक, जामीन आणि कायदेशीर प्रक्रिया","गिरफ्तारी, जमानत और कानूनी प्रक्रिया","Arrest, bail and legal process"],rd_property:["जमीन, घर आणि मालमत्ता संबंधित हक्क","ज़मीन, घर और संपत्ति संबंधी अधिकार","Land, home and property rights"],rd_senior:["आरोग्य, पेन्शन आणि सन्मान","स्वास्थ्य, पेंशन और सम्मान","Health, pension and dignity"],rd_education:["शिक्षणाचे अधिकार आणि संधी","शिक्षा के अधिकार और अवसर","Education rights and opportunities"],
 rd_family:["विवाह, घटस्फोट, पोटगी आणि वारसा","विवाह, तलाक, भरण-पोषण और उत्तराधिकार","Marriage, divorce, maintenance and inheritance"],rd_cyber:["ऑनलाइन फसवणूक आणि सायबर सुरक्षा","ऑनलाइन धोखाधड़ी और साइबर सुरक्षा","Online fraud and cyber safety"],
+rd_money:["कर्ज, सावकारी आणि चेक बाउंस संबंधित हक्क","ऋण, साहूकारी और चेक बाउंस संबंधी अधिकार","Loans, money-lending and cheque-bounce rights"],rd_accident:["अपघात नुकसान भरपाई व दावा प्रक्रिया","दुर्घटना क्षतिपूर्ति व दावा प्रक्रिया","Accident compensation and claim process"],
 more_topics:["आणखी विषय","और विषय","More Topics"],
 topic_related:["संबंधित संविधान कलमे","संबंधित संविधान अनुच्छेद","Related Constitutional Articles"],topic_faq:["सामान्य प्रश्न","सामान्य प्रश्न","Frequently Asked Questions"],
 topic_ask_btn:["या विषयावर AI ला विचारा","इस विषय पर AI से पूछें","Ask AI about this topic"],topic_pdf_btn:["या विषयाची PDF बनवा","इस विषय की PDF बनाएँ","Download this topic as PDF"],
@@ -164,7 +168,12 @@ function setHeader(){
 function goBack(){if(stack.length>1){history.back()}else location.hash='#home'}
 
 /* ---- होम ---- */
+const HELP_WITH=[['police','police2'],['property','property2'],['family','family2'],['labour','job'],['money','money'],['accident','accident'],['women','women2'],['cyber','cyber2']];
+function renderHelpWith(){
+  $('#helpWithGrid').innerHTML=HELP_WITH.map(h=>'<button class="tile" data-topic="'+h[0]+'"><i class="ic-i" data-ic="'+h[1]+'"></i><span>'+esc(t('hw_'+h[0]))+'</span></button>').join('');
+}
 function renderHome(){
+  renderHelpWith();
   if(S.welcome)$('#heroS').textContent=S.welcome;
   if(S.cta)$('#ctaHelpTxt').textContent=S.cta;
   const n=$('#notice');if(S.update){n.classList.remove('hide');n.textContent=S.update}else n.classList.add('hide');
@@ -248,7 +257,7 @@ function openArticle(num){
 
 /* ---- माझे हक्क ---- */
 const RIGHTS_MAIN=[['citizens','t0'],['women','t1'],['children','t2'],['consumer','t3'],['labour','t4'],['police','t5'],['property','t6'],['senior','t7'],['education','t8']];
-const RIGHTS_MORE=[['family','t0'],['cyber','t5']];
+const RIGHTS_MORE=[['family','t0'],['cyber','t5'],['money','t3'],['accident','t6']];
 function rightsRow(k,tint){const p=D.TOPICS[k];if(!p)return '';return '<button class="lrow" data-topic="'+k+'"><span class="itile '+tint+'">'+(p.icon&&p.icon.indexOf('<svg')!==0?p.icon:ic('rights'))+'</span><div class="lt"><b>'+esc(txt(p.title))+'</b><small>'+esc(t('rd_'+k))+'</small></div><i class="ic-i chev">'+ICONS.chev+'</i></button>'}
 function renderRights(){
   $('#rBody').innerHTML=RIGHTS_MAIN.map(r=>rightsRow(r[0],r[1])).join('')+'<h2 class="sec-title">'+esc(t('more_topics'))+'</h2>'+RIGHTS_MORE.map(r=>rightsRow(r[0],r[1])).join('');
