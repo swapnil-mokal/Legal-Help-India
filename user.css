@@ -12,7 +12,8 @@ body.user .lang button{padding:7px 10px;font-size:.8rem}
 .btn .ic-i{width:20px;height:20px}
 .btn.gold{color:#10203f}
 
-.hero2{background:linear-gradient(135deg,#0b3d91,#082a66);color:#fff;border-radius:20px;padding:22px 18px 20px;margin-bottom:6px;box-shadow:var(--sh)}
+.hero2{background:linear-gradient(135deg,#0b3d91,#082a66);color:#fff;border-radius:20px;padding:22px 18px 20px;margin-bottom:6px;box-shadow:var(--sh);overflow:hidden;position:relative}
+.hero-art{width:100%;height:auto;border-radius:14px;margin-bottom:14px;display:block;background:#fff}
 .hero2 h1{font-size:1.55rem;line-height:1.35}
 .hero2 p{opacity:.9;margin:8px 0 16px;font-size:.93rem}
 .hero2 .btn+.btn{margin-top:10px}
@@ -42,8 +43,8 @@ body.user .lang button{padding:7px 10px;font-size:.8rem}
 .lrow .chev{width:18px;height:18px;color:#9aa5b8;flex:none}
 .rtype{font-size:.68rem;color:#b07d00;font-weight:700;letter-spacing:.03em}
 
-.cbanner{border-radius:18px;padding:18px 14px 16px;text-align:center;background:linear-gradient(180deg,#f6a54d 0%,#ffffff 50%,#5dbb63 100%);margin-bottom:14px;box-shadow:var(--sh)}
-.cbanner svg{width:56px;height:56px;color:#0b3d91;display:block;margin:0 auto 6px}
+.cbanner{border-radius:18px;padding:16px 14px 16px;text-align:center;background:#fff;margin-bottom:14px;box-shadow:var(--sh);overflow:hidden}
+.cbanner img{width:100%;height:auto;border-radius:12px;display:block;margin:0 auto 10px}
 .cbanner h2{color:#0b3d91;font-size:1.45rem;margin:0}
 .cbanner p{color:#33425e;font-size:.85rem;margin:2px 0 0;font-weight:600}
 .pre-card{background:#fff;border-radius:14px;box-shadow:var(--sh);padding:16px;margin-bottom:14px;line-height:1.8}

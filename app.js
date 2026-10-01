@@ -28,7 +28,10 @@ tag:["कायद्याची माहिती • सोप्या भ�
 nav_home:["होम","होम","Home"],nav_ask:["AI प्रश्न","AI प्रश्न","AI Ask"],nav_help:["कायदेशीर मदत","कानूनी मदद","Legal Help"],nav_info:["माहिती","जानकारी","Info"],
 pg_search:["कायदा शोधा","कानून खोजें","Search Law"],pg_const:["संविधान","संविधान","Constitution"],pg_rights:["माझे हक्क","मेरे अधिकार","My Rights"],pg_forms:["नमुना अर्ज","नमूना आवेदन","Sample Forms"],
 pg_ask:["AI कायदेशीर मार्गदर्शक","AI कानूनी मार्गदर्शक","AI Legal Guide"],pg_help:["कायदेशीर मदत मागा","कानूनी मदद माँगें","Request Legal Help"],pg_status:["माझी विनंती","मेरा अनुरोध","My Request"],
-pg_info:["माहिती","जानकारी","Information"],pg_contact:["मदत केंद्र","सहायता केंद्र","Help Center"],pg_reviews:["अभिप्राय","समीक्षाएँ","Reviews"],pg_about:["आमच्याबद्दल","हमारे बारे में","About Us"],pg_team:["आमची टीम","हमारी टीम","Our Team"],
+pg_info:["माहिती","जानकारी","Information"],pg_updates:["महत्त्वाच्या कायदेशीर सूचना","महत्वपूर्ण कानूनी सूचनाएँ","Important Legal Updates"],
+qa_updates:["महत्त्वाच्या सूचना","महत्वपूर्ण सूचनाएँ","Legal Updates"],
+upd_empty:["सध्या कोणतीही नवी सूचना नाही.","फिलहाल कोई नई सूचना नहीं है।","There are no new updates right now."],
+upd_note:["ही सूचना आमच्या टीमद्वारे वेळोवेळी अद्ययावत केली जाते. अधिकृत व अद्ययावत माहितीसाठी संबंधित सरकारी विभागाच्या संकेतस्थळाला भेट द्या.","यह सूचना हमारी टीम द्वारा समय-समय पर अद्यतन की जाती है। आधिकारिक व नवीनतम जानकारी हेतु संबंधित सरकारी विभाग की वेबसाइट देखें।","This notice is updated by our team from time to time. For official and current information, please visit the relevant government department's website."],pg_contact:["मदत केंद्र","सहायता केंद्र","Help Center"],pg_reviews:["अभिप्राय","समीक्षाएँ","Reviews"],pg_about:["आमच्याबद्दल","हमारे बारे में","About Us"],pg_team:["आमची टीम","हमारी टीम","Our Team"],
 hero_t:["तुमच्या हक्कांची माहिती, सोप्या भाषेत","अपने अधिकारों की जानकारी, सरल भाषा में","Know your rights, in simple language"],
 hero_s:["कायदेशीर प्रश्न विचारा, योग्य माहिती मिळवा आणि आवश्यक असल्यास कायदेशीर मदत मागा.","कानूनी सवाल पूछें, सही जानकारी पाएँ और ज़रूरत हो तो कानूनी मदद माँगें।","Ask legal questions, get the right information and request legal help if needed."],
 cta_ask:["AI ला विचारा","AI से पूछें","Ask AI"],cta_help:["कायदेशीर मदत मागा","कानूनी मदद माँगें","Request Legal Help"],
@@ -134,7 +137,7 @@ let S={},lastAnswer='',lastTrack=null,wizStep=1,curRoute={name:'home',arg:''},st
 window._rv=null;
 
 /* ---- मार्ग (routes) ---- */
-const R={home:{nav:'home'},search:{nav:'home',t:'pg_search'},const:{nav:'home',t:'pg_const'},rights:{nav:'home',t:'pg_rights'},topic:{nav:'home'},forms:{nav:'home',t:'pg_forms'},
+const R={home:{nav:'home'},search:{nav:'home',t:'pg_search'},const:{nav:'home',t:'pg_const'},rights:{nav:'home',t:'pg_rights'},topic:{nav:'home'},forms:{nav:'home',t:'pg_forms'},updates:{nav:'home',t:'pg_updates'},
  ask:{nav:'ask',t:'pg_ask'},help:{nav:'help',t:'pg_help'},status:{nav:'home',t:'pg_status'},info:{nav:'info',t:'pg_info'},contact:{nav:'info',t:'pg_contact'},reviews:{nav:'info',t:'pg_reviews'},about:{nav:'info',t:'pg_about'},team:{nav:'info',t:'pg_team'}};
 function parseHash(){const h=(location.hash||'#home').replace(/^#/,''),i=h.indexOf('-'),n=i<0?h:h.slice(0,i),a=i<0?'':h.slice(i+1);return{name:R.hasOwnProperty(n)?n:'home',arg:a}}
 
@@ -238,7 +241,7 @@ function constList(){
   });
 }
 function renderConst(){
-  $('#cBanner').innerHTML='<div class="cbanner">'+ICONS.chakra+'<h2>'+esc(t('cb_title')||'')+'</h2><p>'+esc(t('cb_sub'))+'</p></div>'+
+  $('#cBanner').innerHTML='<div class="cbanner"><img src="assets/images/constitution.svg" alt="" width="900" height="420"><h2>'+esc(t('cb_title')||'')+'</h2><p>'+esc(t('cb_sub'))+'</p></div>'+
     '<div class="ccards">'+CONST_CARDS.map(c=>'<button class="cat'+(cFilter===c.k?' on':'')+'" data-cf="'+c.k+'">'+(c.ic?ic(c.ic):'<span class="em">'+c.em+'</span>')+'<span>'+esc(t('cc_'+c.k))+'</span></button>').join('')+'</div>';
   $('#cqClear').classList.toggle('hide',!$('#cq').value);
   const b=$('#cBody');
@@ -352,6 +355,11 @@ function showTrack(){
   out.className='';out.innerHTML='<div class="tl"><div class="tl-id">'+esc(lastTrack.id)+'</div>'+order.map((s,n)=>'<div class="tl-item '+(n<=cur?'c'+n:'pending')+'"><span class="tl-dot"></span><div><b>'+esc(t('tl'+n))+'</b><small>'+(n===0?esc(ds||'—'):'—')+'</small></div></div>').join('')+'</div>';
 }
 
+/* ---- महत्त्वाच्या कायदेशीर सूचना ---- */
+function renderUpdates(){
+  $('#updBody').innerHTML=(S.update?'<div class="acard"><span class="itile t3" style="margin-bottom:10px">'+ic('notifications')+'</span><p style="font-size:.98rem;line-height:1.7">'+esc(S.update)+'</p></div>':'<div class="empty">'+esc(t('upd_empty'))+'</div>')+
+   '<div class="note" style="margin-top:14px">'+esc(t('upd_note'))+'</div>';
+}
 /* ---- माहिती हब ---- */
 function isStandalone(){return (window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||window.navigator.standalone===true}
 function infoRow(go,icon,tint,title,desc,attr){return '<button class="lrow" '+(go?'data-go="'+go+'"':attr)+'><span class="itile '+tint+'">'+ic(icon)+'</span><div class="lt"><b>'+esc(title)+'</b><small>'+esc(desc)+'</small></div><i class="ic-i chev">'+ICONS.chev+'</i></button>'}
@@ -450,6 +458,7 @@ function renderCurrent(){
   else if(n==='rights')renderRights();
   else if(n==='topic')renderTopic(curRoute.arg);
   else if(n==='forms')renderForms();
+  else if(n==='updates')renderUpdates();
   else if(n==='ask')renderAsk();
   else if(n==='help')renderWiz();
   else if(n==='status')showTrack();
@@ -522,6 +531,6 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeSheet();closeP
 
 $('#offlinePill').classList.toggle('hide',navigator.onLine!==false);
 applyText();route();
-apiFetch('public-settings',{method:'POST',body:'{}'}).then(r=>r.json()).then(d=>{S=d.settings||{};if(curRoute.name==='home')renderHome()}).catch(()=>{});
+apiFetch('public-settings',{method:'POST',body:'{}'}).then(r=>r.json()).then(d=>{S=d.settings||{};if(curRoute.name==='home')renderHome();if(curRoute.name==='updates')renderUpdates()}).catch(()=>{});
 if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 })();
