@@ -127,9 +127,34 @@ function buildTopicHTML(key,topic,ARTICLES,L){
   body+=contactFooter(L)+'</div>';
   return body;
 }
-async function renderNodeToPdf(html,filenameBase){
+function loadScriptOnce(src){
+  return new Promise((resolve,reject)=>{
+    if(document.querySelector('script[data-lhi-lib="'+src+'"]')){
+      // आधीच विनंती केलेली आहे — त्याच स्क्रिप्टच्या load/error इव्हेंटची वाट बघा
+      const s=document.querySelector('script[data-lhi-lib="'+src+'"]');
+      if(s.dataset.loaded==='1')return resolve();
+      s.addEventListener('load',()=>resolve());s.addEventListener('error',()=>reject(new Error('लायब्ररी लोड होऊ शकली नाही: '+src)));
+      return;
+    }
+    const s=document.createElement('script');s.src=src;s.async=true;s.dataset.lhiLib=src;
+    s.onload=()=>{s.dataset.loaded='1';resolve()};
+    s.onerror=()=>reject(new Error('लायब्ररी लोड होऊ शकली नाही (इंटरनेट तपासा): '+src));
+    document.head.appendChild(s);
+  });
+}
+async function ensureLibs(){
+  // PDF बनवताना लागणाऱ्या दोन बाहेरच्या लायब्ररी (html2canvas, jsPDF) आता गरज पडेल तेव्हाच
+  // (PDF बटण दाबल्यावर) लोड होतात — त्यामुळे मुख्य ऍप (आयकॉन्स, मेनू, AI, फॉर्म) बाहेरच्या
+  // CDN वर अवलंबून न राहता लगेच, विश्वासार्हपणे सुरू होतं.
+  const jobs=[];
+  if(!window.html2canvas)jobs.push(loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js'));
+  if(!(window.jspdf&&window.jspdf.jsPDF))jobs.push(loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'));
+  if(jobs.length)await Promise.all(jobs);
   if(!(window.jspdf&&window.jspdf.jsPDF))throw new Error('pdf-lib-missing');
   if(!window.html2canvas)throw new Error('canvas-lib-missing');
+}
+async function renderNodeToPdf(html,filenameBase){
+  await ensureLibs();
   // महत्त्वाचे: html2canvas ला मोबाईल ब्राउझरमध्ये आतील भाग "पेंट" करता यावा म्हणून हा भाग
   // पडद्याबाहेर (-99999px) नेण्याऐवजी पडद्याच्या 0,0 वरच ठेवतो व 0x0 आकाराच्या
   // overflow:hidden चौकटीत लपवतो — त्यामुळे तो अदृश्य राहतो पण रेंडर मात्र होतो.

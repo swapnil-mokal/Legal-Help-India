@@ -1,6 +1,6 @@
 // Legal Help India — User PWA Service Worker
 // Network-first (नेहमी नवीन आवृत्ती), नेटवर्क नसल्यास cache. API कॉल्स कधीही cache होत नाहीत.
-const CACHE_NAME = "lhi-user-v14";
+const CACHE_NAME = "lhi-user-v15";
 const APP_SHELL = ["./", "./index.html", "./manifest.json", "./app.js", "./shared/ui.css", "./user.css", "./shared/config.js", "./shared/content.js", "./shared/content2.js", "./shared/content3.js", "./shared/icons.js", "./shared/pdf.js", "./icons/icon-192.png", "./icons/icon-512.png", "./assets/images/legal-hero.svg", "./assets/images/constitution.svg", "./about-swapnil-mokal.jpg", "./about-prashant-abhang.jpg"];
 
 self.addEventListener("install", (e) => {
