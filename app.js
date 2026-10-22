@@ -4,23 +4,10 @@ const C=window.LHI_CONFIG,D=window.LHI_DATA,$=s=>document.querySelector(s),$$=s=
 const IDX={mr:0,hi:1,en:2};let L='mr';try{L=localStorage.getItem('lhi-lang')||'mr'}catch(e){}
 if(!IDX.hasOwnProperty(L))L='mr';
 
-/* ---- अतिरिक्त आयकॉन्स (line style) ---- */
-const svg=p=>'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>';
-const ICONS=window.LHI_ICONS=Object.assign({
- info:svg('<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>'),
- back:svg('<path d="M15 5l-7 7 7 7"/>'),chev:svg('<path d="M9 5l7 7-7 7"/>'),
- send:svg('<path d="M21 3L3 10.5l7 2.5 2.5 7L21 3z"/><path d="M10 13l4-4"/>'),
- phone:svg('<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>'),
- mail:svg('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>'),
- share:svg('<circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.2 10.8l7.6-4.6M8.2 13.2l7.6 4.6"/>'),
- whatsapp:svg('<path d="M4 20l1.4-4.2A8.5 8.5 0 1 1 8.3 18.7L4 20z"/><path d="M9 9.5c.3 2.2 2.3 4.2 4.5 4.5l1.2-1.2-1.8-1-.8.6a3 3 0 0 1-1.5-1.5l.6-.8-1-1.8L9 9.5z"/>'),
- download:svg('<path d="M12 4v11M7 11l5 5 5-5M5 20h14"/>'),
- eye:svg('<path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>'),
- install:svg('<rect x="6" y="3" width="12" height="18" rx="2.5"/><path d="M12 8v6M9.5 12l2.5 2.5 2.5-2.5"/>'),
- power:svg('<path d="M12 3v8"/><path d="M6.5 6.5a8 8 0 1 0 11 0"/>'),
- chakra:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><circle cx="32" cy="32" r="28"/><circle cx="32" cy="32" r="4" fill="currentColor"/>'+Array.from({length:24},(_,i)=>{const a=i*Math.PI/12;return '<line x1="'+(32+7*Math.cos(a)).toFixed(1)+'" y1="'+(32+7*Math.sin(a)).toFixed(1)+'" x2="'+(32+27*Math.cos(a)).toFixed(1)+'" y2="'+(32+27*Math.sin(a)).toFixed(1)+'"/>'}).join('')+'</svg>'
-},window.LHI_ICONS||{});
-const ic=n=>'<i class="ic-i">'+(ICONS[n]||'')+'</i>';
+/* ---- आयकॉन्स: आता JavaScript वर अवलंबून नाहीत — प्रत्येक आयकॉन /assets/icons/ मधली
+   स्वतंत्र, स्थानिक SVG फाईल आहे, <img> टॅगने दाखवली जाते. कुठलीही बाहेरची सेवा किंवा
+   इंटरनेट/स्क्रिप्ट लोडिंगवर अवलंबून नाही, त्यामुळे ती कधीही रिकामी दिसणार नाही. ---- */
+const ic=n=>'<img class="ic-i" src="assets/icons/'+n+'.svg" alt="">';
 
 /* ---- मजकूर (मराठी / हिंदी / English) ---- */
 const T={
@@ -146,10 +133,18 @@ function msg(el,cls,html){el.className='msg '+cls;el.innerHTML=html}
 async function call(fn,body){const r=await apiFetch(fn,{method:'POST',body:JSON.stringify(body||{})}),d=await r.json();if(!r.ok)throw new Error(d.error||'error');return d}
 function fail(el,e,extra){console.error(e);msg(el,'err',esc(t('err_net'))+'<br><small>'+esc(e&&e.message||'')+'</small>'+(extra||''))}
 function waLink(text){return 'https://wa.me/'+C.whatsappNumber+'?text='+encodeURIComponent(text)}
-function fillIcons(root){(root?[].slice.call(root.querySelectorAll('[data-ic]')):$$('[data-ic]')).forEach(e=>{if(ICONS[e.dataset.ic])e.innerHTML=ICONS[e.dataset.ic]})}
+// आयकॉन फाईल कधी लोड होऊ शकली नाही (उदा. अत्यंत खराब नेटवर्क), तर रिकामी जागा दिसू नये
+// म्हणून एक साधं, नेहमी-उपलब्ध गोल चिन्ह (SVG data-URI) आपोआप त्याजागी दाखवलं जातं.
+const FALLBACK_ICON_URI='data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%230b3d91" stroke-width="1.8"><circle cx="12" cy="12" r="9"/></svg>');
+document.addEventListener('error',e=>{
+  const img=e.target;
+  if(img&&img.tagName==='IMG'&&img.classList&&img.classList.contains('ic-i')&&img.src.indexOf('assets/icons/')>=0&&!img.dataset.fallback){
+    img.dataset.fallback='1';img.src=FALLBACK_ICON_URI;
+  }
+},true);
 function norm(s){return String(s||'').replace(/[०-९]/g,c=>String('०१२३४५६७८९'.indexOf(c))).toLowerCase()}
 function topicKeys(){return Object.keys(D.TOPICS)}
-function openSheet(html){$('#sheetBody').innerHTML='<button class="modal-close" data-close="1" aria-label="Close">&times;</button>'+html;$('#sheetModal').classList.remove('hide');fillIcons($('#sheetBody'))}
+function openSheet(html){$('#sheetBody').innerHTML='<button class="modal-close" data-close="1" aria-label="Close">&times;</button>'+html;$('#sheetModal').classList.remove('hide')}
 function closeSheet(){$('#sheetModal').classList.add('hide');$('#sheetBody').innerHTML=''}
 async function shareContent(text,url){
   const data={title:'Legal Help India',text:text};if(url)data.url=url;
@@ -171,9 +166,9 @@ function setHeader(){
 function goBack(){if(stack.length>1){history.back()}else location.hash='#home'}
 
 /* ---- होम ---- */
-const HELP_WITH=[['police','police2'],['property','property2'],['family','family2'],['labour','job'],['money','money'],['accident','accident'],['women','women2'],['cyber','cyber2']];
+const HELP_WITH=[['police','police'],['property','property'],['family','family'],['labour','job'],['money','money'],['accident','accident'],['women','women'],['cyber','cyber']];
 function renderHelpWith(){
-  $('#helpWithGrid').innerHTML=HELP_WITH.map(h=>'<button class="tile" data-topic="'+h[0]+'"><i class="ic-i" data-ic="'+h[1]+'"></i><span>'+esc(t('hw_'+h[0]))+'</span></button>').join('');
+  $('#helpWithGrid').innerHTML=HELP_WITH.map(h=>'<button class="tile" data-topic="'+h[0]+'">'+ic(h[1])+'<span>'+esc(t('hw_'+h[0]))+'</span></button>').join('');
 }
 function renderHome(){
   renderHelpWith();
@@ -221,7 +216,7 @@ function renderSearch(){
   if(!res.length){body.innerHTML='<div class="empty">'+esc(t('no_results'))+'<br><br><button class="btn" data-asknow="1">'+esc(t('cta_ask'))+'</button></div>';return}
   body.innerHTML=res.map(it=>{
     const tag=it.type==='article'?t('rt_article'):it.type==='topic'?t('rt_topic'):t('rt_doc');
-    return '<button class="lrow" data-res="'+it.type+':'+esc(it.id)+'"><div class="lt"><span class="rtype">'+esc(tag)+'</span><b>'+esc(it.title)+'</b><small>'+esc((it.snip||'').slice(0,110))+'</small></div><i class="ic-i chev">'+ICONS.chev+'</i></button>';
+    return '<button class="lrow" data-res="'+it.type+':'+esc(it.id)+'"><div class="lt"><span class="rtype">'+esc(tag)+'</span><b>'+esc(it.title)+'</b><small>'+esc((it.snip||'').slice(0,110))+'</small></div><img class="ic-i chev-img" src="assets/icons/chev.svg" alt=""></button>';
   }).join('');
 }
 function openResult(v){
@@ -251,7 +246,7 @@ function renderConst(){
   }
   const list=constList();
   b.innerHTML=(cFilter!=='all'?'<button class="btn ghost sm" style="margin-bottom:10px" data-cf="all">'+esc(t('art_all'))+'</button>':'')+
-    (list.length?list.map(a=>'<button class="lrow" data-art="'+esc(a.num)+'"><span class="itile t0">'+ic('documents')+'</span><div class="lt"><b>'+esc(txt(a.title))+'</b></div><i class="ic-i chev">'+ICONS.chev+'</i></button>').join(''):'<div class="empty">'+esc(t('no_results'))+'</div>');
+    (list.length?list.map(a=>'<button class="lrow" data-art="'+esc(a.num)+'"><span class="itile t0">'+ic('documents')+'</span><div class="lt"><b>'+esc(txt(a.title))+'</b></div><img class="ic-i chev-img" src="assets/icons/chev.svg" alt=""></button>').join(''):'<div class="empty">'+esc(t('no_results'))+'</div>');
 }
 function openArticle(num){
   const a=D.ARTICLES.find(x=>x.num===num);if(!a)return;
@@ -261,7 +256,7 @@ function openArticle(num){
 /* ---- माझे हक्क ---- */
 const RIGHTS_MAIN=[['citizens','t0'],['women','t1'],['children','t2'],['consumer','t3'],['labour','t4'],['police','t5'],['property','t6'],['senior','t7'],['education','t8']];
 const RIGHTS_MORE=[['family','t0'],['cyber','t5'],['money','t3'],['accident','t6']];
-function rightsRow(k,tint){const p=D.TOPICS[k];if(!p)return '';return '<button class="lrow" data-topic="'+k+'"><span class="itile '+tint+'">'+(p.icon&&p.icon.indexOf('<svg')!==0?p.icon:ic('rights'))+'</span><div class="lt"><b>'+esc(txt(p.title))+'</b><small>'+esc(t('rd_'+k))+'</small></div><i class="ic-i chev">'+ICONS.chev+'</i></button>'}
+function rightsRow(k,tint){const p=D.TOPICS[k];if(!p)return '';return '<button class="lrow" data-topic="'+k+'"><span class="itile '+tint+'">'+(p.icon&&p.icon.indexOf('<svg')!==0?p.icon:ic('rights'))+'</span><div class="lt"><b>'+esc(txt(p.title))+'</b><small>'+esc(t('rd_'+k))+'</small></div><img class="ic-i chev-img" src="assets/icons/chev.svg" alt=""></button>'}
 function renderRights(){
   $('#rBody').innerHTML=RIGHTS_MAIN.map(r=>rightsRow(r[0],r[1])).join('')+'<h2 class="sec-title">'+esc(t('more_topics'))+'</h2>'+RIGHTS_MORE.map(r=>rightsRow(r[0],r[1])).join('');
 }
@@ -272,7 +267,7 @@ function renderTopic(key){
   const icon=p.icon&&p.icon.indexOf('<svg')!==0?p.icon:ic('rights');
   $('#tBody').innerHTML='<div class="about-head"><span class="itile t0" style="width:56px;height:56px;font-size:1.8rem">'+icon+'</span><div><b>'+esc(txt(p.title))+'</b><small>'+esc(t('rd_'+key)||'')+'</small></div></div>'+
    p.sections.map(s=>'<div class="acard"><h3>'+esc(txt(s.heading))+'</h3><ul>'+(s.items[L]||[]).map(i=>'<li>'+esc(i)+'</li>').join('')+'</ul></div>').join('')+
-   (rel.length?'<div class="acard"><h3>'+esc(t('topic_related'))+'</h3>'+rel.map(a=>'<button class="lrow" data-art="'+esc(a.num)+'" style="box-shadow:none;background:#f4f7fb"><div class="lt"><b>'+esc(txt(a.title))+'</b></div><i class="ic-i chev">'+ICONS.chev+'</i></button>').join('')+'</div>':'')+
+   (rel.length?'<div class="acard"><h3>'+esc(t('topic_related'))+'</h3>'+rel.map(a=>'<button class="lrow" data-art="'+esc(a.num)+'" style="box-shadow:none;background:#f4f7fb"><div class="lt"><b>'+esc(txt(a.title))+'</b></div><img class="ic-i chev-img" src="assets/icons/chev.svg" alt=""></button>').join('')+'</div>':'')+
    ((p.faqs||[]).length?'<h2 class="sec-title">'+esc(t('topic_faq'))+'</h2>'+p.faqs.map(f=>'<details class="card acc faq"><summary>'+esc(txt(f.q))+'</summary><p style="margin:0 16px 14px">'+esc(txt(f.a))+'</p></details>').join(''):'')+
    '<div class="row" style="margin-top:6px"><button class="btn wide" data-asktopic="'+esc(key)+'">'+ic('ai-guide')+esc(t('topic_ask_btn'))+'</button><button class="btn gold wide" data-pdftopic="'+esc(key)+'">'+ic('download')+esc(t('topic_pdf_btn'))+'</button></div>';
 }
@@ -362,7 +357,7 @@ function renderUpdates(){
 }
 /* ---- माहिती हब ---- */
 function isStandalone(){return (window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||window.navigator.standalone===true}
-function infoRow(go,icon,tint,title,desc,attr){return '<button class="lrow" '+(go?'data-go="'+go+'"':attr)+'><span class="itile '+tint+'">'+ic(icon)+'</span><div class="lt"><b>'+esc(title)+'</b><small>'+esc(desc)+'</small></div><i class="ic-i chev">'+ICONS.chev+'</i></button>'}
+function infoRow(go,icon,tint,title,desc,attr){return '<button class="lrow" '+(go?'data-go="'+go+'"':attr)+'><span class="itile '+tint+'">'+ic(icon)+'</span><div class="lt"><b>'+esc(title)+'</b><small>'+esc(desc)+'</small></div><img class="ic-i chev-img" src="assets/icons/chev.svg" alt=""></button>'}
 function renderInfo(){
   $('#iBody').innerHTML=infoRow('#contact','phone','t2',t('ih_contact'),t('ih_contact_d'))+infoRow('#reviews','messages','t6',t('ih_reviews'),t('ih_reviews_d'))+infoRow('#about','info','t0',t('ih_about'),t('ih_about_d'))+infoRow('#team','profile','t4',t('ih_team'),t('ih_team_d'))+
    ((deferredPrompt&&!isStandalone())?infoRow('','install','t5',t('ih_install'),t('ih_install_d'),'data-install="1"'):'')+
@@ -446,7 +441,13 @@ async function downloadTopicPdf(key){
   try{await window.LHI_PDF.downloadTopic(key,topic,D.ARTICLES,L);alert(t('topic_pdf_done'))}
   catch(e){console.error(e);alert(t('pdf_err'))}
 }
-function exitApp(){try{window.close()}catch(e){}setTimeout(()=>{if(!document.hidden)alert(t('exit_hint'))},250)}
+function exitApp(){
+  // ब्राउझर सुरक्षेमुळे कुठलंही वेब/PWA ऍप स्वतःहून पूर्ण बंद करू शकत नाही (फक्त स्क्रिप्टने स्वतः
+  // उघडलेली विंडो बंद करता येते, मुख्य ऍप विंडो नाही) — हे प्रयत्न करूनही, सूचना मात्र नेहमी दिसेल.
+  try{window.close()}catch(e){}
+  try{if(window.navigator&&window.navigator.app&&window.navigator.app.exitApp)window.navigator.app.exitApp()}catch(e){}
+  alert(t('exit_hint'));
+}
 
 /* ---- रूट व्यवस्थापन ---- */
 function renderCurrent(){
@@ -467,14 +468,11 @@ function renderCurrent(){
   else if(n==='reviews')renderReviews();
   else if(n==='about')renderAbout();
   else if(n==='team')renderTeam();
-  fillIcons();
 }
 function applyText(){
-  fillIcons();
   $$('[data-t]').forEach(e=>e.textContent=t(e.dataset.t));$$('[data-p]').forEach(e=>e.placeholder=t(e.dataset.p));
   $$('#lang button').forEach(b=>b.classList.toggle('on',b.dataset.l===L));document.documentElement.lang=L;
   const cur=$('#fCat').value;$('#fCat').innerHTML=Object.keys(D.TOPICS).map(k=>'<option value="'+esc(D.TOPICS[k].title.en)+'">'+esc(txt(D.TOPICS[k].title))+'</option>').join('')+'<option value="Other">'+esc(t('f_other'))+'</option>';if(cur)$('#fCat').value=cur;
-  $('#backBtn').innerHTML=ICONS.back;
   const dl=$('#districtList');if(dl&&!dl.children.length)dl.innerHTML=DISTRICTS.map(d=>'<option value="'+esc(d)+'">').join('');
   renderCurrent();
 }

@@ -6,7 +6,7 @@ body.user .top img{width:42px;height:42px;border-radius:12px}
 #hdrTitle small{display:block;font-weight:400;opacity:.8;font-size:.74rem;margin-top:1px}
 #hdrTitle.home{font-size:1.18rem}
 .iconbtn{background:rgba(255,255,255,.16);border:0;color:#fff;width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none}
-.iconbtn svg{width:22px;height:22px}
+.iconbtn img{width:22px;height:22px}
 body.user .lang button{padding:7px 10px;font-size:.8rem}
 .wide{width:100%}
 .btn .ic-i{width:20px;height:20px}
@@ -40,7 +40,8 @@ body.user .lang button{padding:7px 10px;font-size:.8rem}
 .lrow .lt{flex:1;min-width:0}
 .lrow .lt b{display:block;font-size:.95rem;color:var(--navy);line-height:1.3}
 .lrow .lt small{display:block;color:var(--mut);font-size:.8rem;margin-top:2px}
-.lrow .chev{width:18px;height:18px;color:#9aa5b8;flex:none}
+.lrow .chev-img{width:18px;height:18px;flex:none;opacity:.4}
+.icon-white{filter:brightness(0) invert(1)}
 .rtype{font-size:.68rem;color:#b07d00;font-weight:700;letter-spacing:.03em}
 
 .cbanner{border-radius:18px;padding:16px 14px 16px;text-align:center;background:#fff;margin-bottom:14px;box-shadow:var(--sh);overflow:hidden}
